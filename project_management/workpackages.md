@@ -1,5 +1,5 @@
 | WP  | Description | Leader | Deadline|
-| ------------- | ------------- | ------------- | ------------- |
+|:-------------:|:-------------:|:-------------:|:-------------:|
 | **WP1**  | Project Management  | Melisa  | TBD |
 | **WP2**  | Feeding Mechanism   | Melisa  | TBD |
 | **WP3**  | Motor Control  | TBD  | TBD |
