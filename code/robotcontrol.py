@@ -1,4 +1,3 @@
-from pickle import FALSE
 import serial
 import time
 from threading import Thread
@@ -35,9 +34,6 @@ class _Config:
     PACKAGE_SONAR_DISABLE = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3B'
     PACKAGE_CLOSE = b'\xFA\xFB\x03\x02\x00\x02'
     PACKAGE_ORIGIN = b'\xFA\xFB\x03\x07\x00\x07'
-
-    PACKAGE_DENEMEHAREKET = b'\xFA\xFB\x06\x08\x3B\x00\xFF\x09\x3A'
-    sum = 0x083B+ 0x00FF  
 
 class _Tools:
     @staticmethod
