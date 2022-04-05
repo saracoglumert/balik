@@ -3,37 +3,40 @@ import time
 from threading import Thread
 
 class _Data:
-    SYNC = False
-    MOTOR_STATUS = False
-    XPOS = 0    #mms
-    YPOS = 0    #mms
-    THPOS = 0   #degs
-    LVEL = 0    #mm/s
-    RVEL = 0    #mm/s
-    BATTERY = 0 #Volts
+    SYNC            = False
+    MOTOR_STATUS    = False
+    XPOS            = 0     #mms
+    YPOS            = 0     #mms
+    THPOS           = 0     #degs
+    LVEL            = 0     #mm/s
+    RVEL            = 0     #mm/s
+    BATTERY         = 0     #Volts
 
 class _Config:
-    SERIAL_PORT = "COM5"
-    SERIAL_BAUDRATE = 9600
-    SERIAL_TIMEOUT = 0.5
+    SERIAL_PORT                 = "COM5"
+    SERIAL_BAUDRATE             = 9600
+    SERIAL_TIMEOUT              = 0.5
 
-    NABIZ = 0.1
+    NABIZ                       = 0.1
 
-    PACKAGE_HEADER1 = 'FA'
-    PACKAGE_HEADER2 = 'FB'
-    PACKAGE_SYNC1 = b'\xFA\xFB\x03\x00\x00\x00'
-    PACKAGE_SYNC2 = b'\xFA\xFB\x03\x01\x00\x01'
-    PACKAGE_SYNC3 = b'\xFA\xFB\x03\x02\x00\x02'
-    PACKAGE_OPEN  = b'\xFA\xFB\x03\x01\x00\x01'
-    PACKAGE_PULSE = b'\xFA\xFB\x03\x00\x00\x00'
-    PACKAGE_ENABLE = b'\xFA\xFB\x06\x04\x3B\x00\x01\x10\x84'
-    PACKAGE_DISABLE = b'\xFA\xFB\x06\x04\x3B\x00\x00\x10\x83'
-    PACKAGE_STOP = b'\xFA\xFB\x03\x29\x00\x29'
-    PACKAGE_ESTOP = b'\xFA\xFB\x03\x55\x00\x55'
-    PACKAGE_SONAR_ENABLE = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3C'
-    PACKAGE_SONAR_DISABLE = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3B'
-    PACKAGE_CLOSE = b'\xFA\xFB\x03\x02\x00\x02'
-    PACKAGE_SETORIGIN = b'\xFA\xFB\x03\x07\x00\x07'
+    PACKAGE_HEADER1             = 'FA'
+    PACKAGE_HEADER2             = 'FB'
+    PACKAGE_ARG_TYPE_POSITIVE   = "3B"
+    PACKAGE_ARG_TYPE_NEGATIVE   = "1B"
+    PACKAGE_BYTE_COUNT          = "06"
+    PACKAGE_SYNC1               = b'\xFA\xFB\x03\x00\x00\x00'
+    PACKAGE_SYNC2               = b'\xFA\xFB\x03\x01\x00\x01'
+    PACKAGE_SYNC3               = b'\xFA\xFB\x03\x02\x00\x02'
+    PACKAGE_OPEN                = b'\xFA\xFB\x03\x01\x00\x01'
+    PACKAGE_PULSE               = b'\xFA\xFB\x03\x00\x00\x00'
+    PACKAGE_ENABLE              = b'\xFA\xFB\x06\x04\x3B\x00\x01\x10\x84'
+    PACKAGE_DISABLE             = b'\xFA\xFB\x06\x04\x3B\x00\x00\x10\x83'
+    PACKAGE_STOP                = b'\xFA\xFB\x03\x29\x00\x29'
+    PACKAGE_ESTOP               = b'\xFA\xFB\x03\x55\x00\x55'
+    PACKAGE_SONAR_ENABLE        = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3C'
+    PACKAGE_SONAR_DISABLE       = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3B'
+    PACKAGE_CLOSE               = b'\xFA\xFB\x03\x02\x00\x02'
+    PACKAGE_SETORIGIN           = b'\xFA\xFB\x03\x07\x00\x07'
 
 class _Tools:
     @staticmethod
@@ -81,13 +84,13 @@ class _Tools:
 
         temp.append(_Config.PACKAGE_HEADER1)
         temp.append(_Config.PACKAGE_HEADER2)
-        temp.append("06")
+        temp.append(_Config.PACKAGE_BYTE_COUNT)
         temp.append(_Tools.Package_Command(command))
         
         if (argument > 0):
-            temp.append("3B")
+            temp.append(_Config.PACKAGE_ARG_TYPE_POSITIVE)
         if (argument < 0):
-            temp.append("1B")
+            temp.append(_Config.PACKAGE_ARG_TYPE_NEGATIVE)
         
         temp += _Tools.Package_Arguments(abs(argument))
         temp += _Tools.Package_Checksum(temp[3],temp[4],temp[5],temp[6])
@@ -121,7 +124,7 @@ class _Robot:
         while True:
             while True:
                 current = ser.read(1)
-                if (current == b'\xfa'):
+                if (current == bytes.fromhex(_Config.PACKAGE_HEADER1)):
                     break
                 else:
                     temp += current
