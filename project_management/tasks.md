@@ -1,2 +1,1 @@
-- [ ] Procurement List
-- [ ] Manufacturing Feeding Mechanism Parts
+- [x] Procurement List
