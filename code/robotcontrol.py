@@ -33,7 +33,7 @@ class _Config:
     PACKAGE_SONAR_ENABLE = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3C'
     PACKAGE_SONAR_DISABLE = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3B'
     PACKAGE_CLOSE = b'\xFA\xFB\x03\x02\x00\x02'
-    PACKAGE_ORIGIN = b'\xFA\xFB\x03\x07\x00\x07'
+    PACKAGE_SETORIGIN = b'\xFA\xFB\x03\x07\x00\x07'
 
 class _Tools:
     @staticmethod
@@ -129,7 +129,7 @@ class _Robot:
 
     @staticmethod
     def SetOrigin():
-        ser.write(_Config.PACKAGE_ORIGIN)
+        ser.write(_Config.PACKAGE_SETORIGIN)
 
     @staticmethod
     def SetTranslationA(input):
