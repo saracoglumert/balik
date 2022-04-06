@@ -12,6 +12,7 @@ class _Data:
     RVEL            = 0     #mm/s
     BATTERY         = 0     #Volts
     SONAR           = []
+    COMMANDS        = []
 
 class _Config:
     SERIAL_PORT                 = "COM5"
@@ -139,6 +140,13 @@ class _Robot:
             print(temp)
 
     @staticmethod
+    def Write():
+        while True:
+            if (len(_Data.COMMANDS) > 0):
+                for command in _Data.COMMANDS:
+                    _Robot.Execute(command)
+
+    @staticmethod
     def SetOrigin():
         SerialConnection.write(_Config.PACKAGE_SETORIGIN)
 
@@ -162,29 +170,49 @@ class _Robot:
     def Rotate(input):
         _Tools.Package(9,input)
 
+    @staticmethod
+    def Execute(input):
+        if(_HMI.IsValid(input)):
+            header = input[:2]
+            argument = int(input[2:])
+            match header:
+                case _Config.CONSOLE_TRANSLATE_FORWARD:
+                    _Robot.Translate(argument)
+                case _Config.CONSOLE_TRANSLATE_BACKWARD:
+                    _Robot.Translate(-argument)
+                case _Config.CONSOLE_ROTATE_RIGHT:
+                    _Robot.Rotate(-argument)
+                case _Config.CONSOLE_ROTATE_LEFT:
+                    _Robot.Rotate(argument)
+
 class _HMI:
+    @staticmethod
+    def IsValid(input):
+        header = input[:2]
+        argument = input[2:]
+        if (argument.isnumeric()):
+            return True
+        else:
+            return False
+    
     @staticmethod
     def Console():
         while True:
             currentinput = input(">")
-            header = currentinput[:2]
-            argument = currentinput[2:]
-            if (argument.isnumeric()):
-                argument = int(argument)
-                match header:
-                    case _Config.CONSOLE_TRANSLATE_FORWARD:
-                        _Robot.Translate(argument)
-                    case _Config.CONSOLE_TRANSLATE_BACKWARD:
-                        _Robot.Translate(-argument)
-                    case _Config.CONSOLE_ROTATE_RIGHT:
-                        _Robot.Rotate(argument)
-                    case _Config.CONSOLE_ROTATE_LEFT:
-                        _Robot.Rotate(-argument)
+            if (_HMI.IsValid(currentinput)):
+                _Robot.Execute(currentinput)
             else:
                 if(currentinput == _Config.CONSOLE_READ):
                     print("read")
                 else:
                     print(_Config.CONSOLE_ERROR)
+
+    @staticmethod
+    def Queue(input):
+        if (_HMI.IsValid(input)):
+            _Data.COMMANDS.append(input)
+        else:
+            print(_Config.CONSOLE_ERROR)
 
 if __name__ == "__main__":
     SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
@@ -195,7 +223,11 @@ if __name__ == "__main__":
     threads = []
     threads.append(Thread(target=_Robot.Heartbeat,daemon=True))
     threads.append(Thread(target=_Robot.Read,daemon=True))
+    #threads.append(Thread(target=_Robot.Write,daemon=True))
     threads.append(Thread(target=_HMI.Console,daemon=True))
+    #threads.append(Thread(target=_ROS.Subscribe,daemon=True))
+    #threads.append(Thread(target=_ROS.Publish,daemon=True))
+    
 
     for thread in threads:
         thread.start()
