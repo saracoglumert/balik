@@ -11,6 +11,7 @@ class _Data:
     LVEL            = 0     #mm/s
     RVEL            = 0     #mm/s
     BATTERY         = 0     #Volts
+    SONAR           = []
 
 class _Config:
     SERIAL_PORT                 = "COM5"
@@ -154,6 +155,23 @@ class _Robot:
     def Rotate(input):
         _Tools.Package(9,input)
 
+class _HMI:
+    @staticmethod
+    def Console():
+        while True:
+            currentinput = input(">")
+            header = currentinput[:2]
+            argument = int(currentinput[2:])
+            match header:
+                case "TF":
+                    _Robot.Translate(argument)
+                case "TB":
+                    _Robot.Translate(-argument)
+                case "RR":
+                    _Robot.Rotate(argument)
+                case "RL":
+                    _Robot.Rotate(-argument)
+
 if __name__ == "__main__":
     ser = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
     print(ser.name)
@@ -163,6 +181,7 @@ if __name__ == "__main__":
     t = []
     t.append(Thread(target=_Robot.Heartbeat,daemon=True))
     t.append(Thread(target=_Robot.Read,daemon=True))
+    t.append(Thread(target=_HMI.Console,daemon=True))
 
     while _Tools.IsAnyThreadAlive(t):
         time.sleep(0)
