@@ -12,6 +12,7 @@ class _Data:
     RVEL            = 0     #mm/s
     BATTERY         = 0     #Volts
     SONAR           = []
+    
     COMMANDS        = []
 
 class _Config:
