@@ -39,6 +39,13 @@ class _Config:
     PACKAGE_CLOSE               = b'\xFA\xFB\x03\x02\x00\x02'
     PACKAGE_SETORIGIN           = b'\xFA\xFB\x03\x07\x00\x07'
 
+    CONSOLE_TRANSLATE_FORWARD   = "TF"
+    CONSOLE_TRANSLATE_BACKWARD  = "TB"
+    CONSOLE_ROTATE_RIGHT        = "RR"
+    CONSOLE_ROTATE_LEFT         = "RL"
+    CONSOLE_READ                = "READ"
+    CONSOLE_ERROR               = "Argument error."
+    
 class _Tools:
     @staticmethod
     def IsAnyThreadAlive(threads):
@@ -161,16 +168,23 @@ class _HMI:
         while True:
             currentinput = input(">")
             header = currentinput[:2]
-            argument = int(currentinput[2:])
-            match header:
-                case "TF":
-                    _Robot.Translate(argument)
-                case "TB":
-                    _Robot.Translate(-argument)
-                case "RR":
-                    _Robot.Rotate(argument)
-                case "RL":
-                    _Robot.Rotate(-argument)
+            argument = currentinput[2:]
+            if (argument.isnumeric()):
+                argument = int(argument)
+                match header:
+                    case _Config.CONSOLE_TRANSLATE_FORWARD:
+                        _Robot.Translate(argument)
+                    case _Config.CONSOLE_TRANSLATE_BACKWARD:
+                        _Robot.Translate(-argument)
+                    case _Config.CONSOLE_ROTATE_RIGHT:
+                        _Robot.Rotate(argument)
+                    case _Config.CONSOLE_ROTATE_LEFT:
+                        _Robot.Rotate(-argument)
+            else:
+                if(currentinput == _Config.CONSOLE_READ):
+                    print("read")
+                else:
+                    print(_Config.CONSOLE_ERROR)
 
 if __name__ == "__main__":
     SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
