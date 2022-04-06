@@ -149,26 +149,37 @@ class _Robot:
     @staticmethod
     def SetOrigin():
         SerialConnection.write(_Config.PACKAGE_SETORIGIN)
+        print("Package Sent : " + str(_Config.PACKAGE_SETORIGIN))
 
     @staticmethod
     def SetTranslationA(input):
-        _Tools.Package(5,input)
+        pkg = _Tools.Package(5,input)
+        SerialConnection.write(pkg)
+        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def SetTranslationV(input):
-        _Tools.Package(6,input)
+        pkg = _Tools.Package(6,input)
+        SerialConnection.write(pkg)
+        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def SetRotationV(input):
-        _Tools.Package(10,input)
+        pkg = _Tools.Package(10,input)
+        SerialConnection.write(pkg)
+        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def Translate(input):
-        _Tools.Package(8,input)
+        pkg = _Tools.Package(8,input)
+        SerialConnection.write(pkg)
+        print("Package Sent : " + str(pkg))
         
     @staticmethod
     def Rotate(input):
-        _Tools.Package(9,input)
+        pkg = _Tools.Package(9,input)
+        SerialConnection.write(pkg)
+        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def Execute(input):
@@ -223,7 +234,7 @@ if __name__ == "__main__":
     threads = []
     threads.append(Thread(target=_Robot.Heartbeat,daemon=True))
     threads.append(Thread(target=_Robot.Read,daemon=True))
-    #threads.append(Thread(target=_Robot.Write,daemon=True))
+    threads.append(Thread(target=_Robot.Write,daemon=True))
     threads.append(Thread(target=_HMI.Console,daemon=True))
     #threads.append(Thread(target=_ROS.Subscribe,daemon=True))
     #threads.append(Thread(target=_ROS.Publish,daemon=True))
