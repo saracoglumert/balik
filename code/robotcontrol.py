@@ -101,22 +101,22 @@ class _Tools:
 class _Robot:
     @staticmethod
     def Init():
-        ser.write(_Config.PACKAGE_SYNC1)
-        ser.write(_Config.PACKAGE_SYNC2)
-        ser.write(_Config.PACKAGE_SYNC3)
+        SerialConnection.write(_Config.PACKAGE_SYNC1)
+        SerialConnection.write(_Config.PACKAGE_SYNC2)
+        SerialConnection.write(_Config.PACKAGE_SYNC3)
         time.sleep(1)
-        ser.write(_Config.PACKAGE_OPEN)
+        SerialConnection.write(_Config.PACKAGE_OPEN)
         _Data.SYNC = True
         time.sleep(1)
-        ser.write(_Config.PACKAGE_SONAR_ENABLE)
+        SerialConnection.write(_Config.PACKAGE_SONAR_ENABLE)
         time.sleep(1)
-        ser.write(_Config.PACKAGE_ENABLE)
+        SerialConnection.write(_Config.PACKAGE_ENABLE)
         _Data.MOTOR_STATUS = True
 
     @staticmethod
     def Heartbeat():
         while True:
-            ser.write(_Config.PACKAGE_PULSE)
+            SerialConnection.write(_Config.PACKAGE_PULSE)
             time.sleep(_Config.NABIZ)
     
     @staticmethod
@@ -124,7 +124,7 @@ class _Robot:
         temp = b''
         while True:
             while True:
-                current = ser.read(1)
+                current = SerialConnection.read(1)
                 if (current == bytes.fromhex(_Config.PACKAGE_HEADER1)):
                     break
                 else:
@@ -133,7 +133,7 @@ class _Robot:
 
     @staticmethod
     def SetOrigin():
-        ser.write(_Config.PACKAGE_SETORIGIN)
+        SerialConnection.write(_Config.PACKAGE_SETORIGIN)
 
     @staticmethod
     def SetTranslationA(input):
@@ -173,15 +173,18 @@ class _HMI:
                     _Robot.Rotate(-argument)
 
 if __name__ == "__main__":
-    ser = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
-    print(ser.name)
+    SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
+    print(SerialConnection.name)
     
     _Robot.Init()
     
-    t = []
-    t.append(Thread(target=_Robot.Heartbeat,daemon=True))
-    t.append(Thread(target=_Robot.Read,daemon=True))
-    t.append(Thread(target=_HMI.Console,daemon=True))
+    threads = []
+    threads.append(Thread(target=_Robot.Heartbeat,daemon=True))
+    threads.append(Thread(target=_Robot.Read,daemon=True))
+    threads.append(Thread(target=_HMI.Console,daemon=True))
 
-    while _Tools.IsAnyThreadAlive(t):
+    for thread in threads:
+        thread.start()
+
+    while _Tools.IsAnyThreadAlive(threads):
         time.sleep(0)
