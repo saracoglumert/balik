@@ -69,7 +69,7 @@ class _Tools:
         return temp
     
     @staticmethod
-    def Package_Argument2(input):
+    def Package_Arguments(input):
         temp2 = []
         temp = input.to_bytes(2,"little")
         for element in temp:
@@ -77,21 +77,6 @@ class _Tools:
             if (len(temp3) == 1):
                 temp3 = "0" + temp3
             temp2.append(temp3)
-        temp2[0] = temp2[0][::-1]
-        return temp2
-    
-    @staticmethod
-    def Package_Arguments(input):
-        temp = str(hex(input))
-        temp = temp.replace("0x","")
-        if (len(temp) == 1):
-            temp = "0" + temp
-        temp = temp.upper()
-        if(len(temp) % 2 == 1):
-            temp = "0" + temp
-        temp2 = [temp[i:i+2] for i in range(0, len(temp), 2)]
-        if (len(temp2) == 1):
-            temp2.insert(0,"00")
         return temp2
 
     @staticmethod
@@ -126,9 +111,7 @@ class _Tools:
         if (argument < 0):
             temp.append(_Config.PACKAGE_ARG_TYPE_NEGATIVE)
         
-        temp += _Tools.Package_Argument2(abs(argument))
-        print("args1 : " + str(_Tools.Package_Arguments(abs(argument))))
-        print("args2 : " + str(_Tools.Package_Argument2(abs(argument))))
+        temp += _Tools.Package_Arguments(abs(argument))
         temp += _Tools.Package_Checksum(temp[3:])
 
         print("Package Sent    : " + str(temp))
