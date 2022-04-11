@@ -1,6 +1,8 @@
 import serial
 import time
 from threading import Thread
+import sys
+import os
 
 class _Data:
     SYNC            = False
@@ -11,14 +13,16 @@ class _Data:
     LVEL            = 0     #mm/s
     RVEL            = 0     #mm/s
     BATTERY         = 0     #Volts
-    SONAR           = []
+    SONARCOUNT      = 0
+    SONAR1          = 0
+    SONAR2          = 0
     
     COMMANDS        = []
 
 class _Config:
     SERIAL_PORT                 = "COM5"
     SERIAL_BAUDRATE             = 9600
-    SERIAL_TIMEOUT              = 0.5
+    SERIAL_TIMEOUT              = 0.1
 
     NABIZ                       = 0.1
 
@@ -48,6 +52,8 @@ class _Config:
     CONSOLE_READ                = "READ"
     CONSOLE_ERROR               = "Argument error."
     
+    DENEMEPAKET                 = b'\xFA\xFB\x06\x08\x3B\x00\xFF\x09\x3A'
+    
 class _Tools:
     @staticmethod
     def IsAnyThreadAlive(threads):
@@ -61,6 +67,18 @@ class _Tools:
             temp = "0" + temp
         temp = temp.upper()
         return temp
+    
+    @staticmethod
+    def Package_Argument2(input):
+        temp2 = []
+        temp = input.to_bytes(2,"little")
+        for element in temp:
+            temp3 = hex(element).replace("0x","").upper()
+            if (len(temp3) == 1):
+                temp3 = "0" + temp3
+            temp2.append(temp3)
+        temp2[0] = temp2[0][::-1]
+        return temp2
     
     @staticmethod
     def Package_Arguments(input):
@@ -77,17 +95,23 @@ class _Tools:
         return temp2
 
     @staticmethod
-    def Package_Checksum(input1,input2,input3,input4):
-        temp1 = int(input1+input2,16)
-        temp2 = int(input3+input4,16)
-        temp = hex(temp1 + temp2)
-        temp = temp.replace("0x","")
-        temp = temp.upper()
-        if (len(temp) % 2 == 1):
-            temp = "0" + temp
-        temp2 = [temp[i:i+2] for i in range(0, len(temp), 2)]
-        return temp2
-            
+    def Package_Checksum(input):
+        print("Checksum Input  : " + str(input))
+        if (len(input) % 2 == 0 ):
+            temp1 = int(input[0]+input[1],16)
+            temp2 = int(input[2]+input[3],16)
+            temp = hex(temp1 + temp2)
+            temp = temp.replace("0x","")
+            temp = temp.upper()
+            if (len(temp) % 2 == 1):
+                temp = "0" + temp
+            temp2 = [temp[i:i+2] for i in range(0, len(temp), 2)]
+            print("Checksum Output : " + str(temp2[-2:]))
+            return temp2[-2:]
+        else:
+            print("xor kullan")
+            return 0
+    
     @staticmethod
     def Package(command,argument):
         temp = []
@@ -102,8 +126,12 @@ class _Tools:
         if (argument < 0):
             temp.append(_Config.PACKAGE_ARG_TYPE_NEGATIVE)
         
-        temp += _Tools.Package_Arguments(abs(argument))
-        temp += _Tools.Package_Checksum(temp[3],temp[4],temp[5],temp[6])
+        temp += _Tools.Package_Argument2(abs(argument))
+        print("args1 : " + str(_Tools.Package_Arguments(abs(argument))))
+        print("args2 : " + str(_Tools.Package_Argument2(abs(argument))))
+        temp += _Tools.Package_Checksum(temp[3:])
+
+        print("Package Sent    : " + str(temp))
 
         return bytes.fromhex("".join(temp))
 
@@ -113,13 +141,17 @@ class _Robot:
         SerialConnection.write(_Config.PACKAGE_SYNC1)
         SerialConnection.write(_Config.PACKAGE_SYNC2)
         SerialConnection.write(_Config.PACKAGE_SYNC3)
-        time.sleep(1)
+        print("[OK] Sync")
+        time.sleep(0.5)
         SerialConnection.write(_Config.PACKAGE_OPEN)
         _Data.SYNC = True
+        print("[OK] Connection Open")
         time.sleep(1)
-        SerialConnection.write(_Config.PACKAGE_SONAR_ENABLE)
+        SerialConnection.write(_Tools.Package(28,1))
+        print("[OK] Sonars Enabled")
         time.sleep(1)
-        SerialConnection.write(_Config.PACKAGE_ENABLE)
+        SerialConnection.write(_Tools.Package(4,1))
+        print("[OK] Motors Enabled")
         _Data.MOTOR_STATUS = True
 
     @staticmethod
@@ -130,15 +162,26 @@ class _Robot:
     
     @staticmethod
     def Read():
-        temp = b''
         while True:
+            temp = b''
             while True:
                 current = SerialConnection.read(1)
                 if (current == bytes.fromhex(_Config.PACKAGE_HEADER1)):
                     break
                 else:
                     temp += current
-            print(temp)
+            try:
+                _Data.XPOS = int.from_bytes(temp[3:5], "little",signed=True)*-1
+                _Data.YPOS = int.from_bytes(temp[5:7], "little",signed=True)*-1
+                _Data.THPOS = int.from_bytes(temp[7:9], "little",signed=True)*-1
+                _Data.LVEL = int.from_bytes(temp[9:11], "little",signed=True)*-1
+                _Data.RVEL = int.from_bytes(temp[11:13], "little",signed=True)*-1
+                _Data.BATTERY = temp[13]/10
+                _Data.SONARCOUNT = temp[21]
+                _Data.SONAR1 = int.from_bytes(temp[24], "little",signed=False)
+                _Data.SONAR2 = int.from_bytes(temp[25], "little",signed=False)
+            except:
+                pass
 
     @staticmethod
     def Write():
@@ -150,37 +193,31 @@ class _Robot:
     @staticmethod
     def SetOrigin():
         SerialConnection.write(_Config.PACKAGE_SETORIGIN)
-        print("Package Sent : " + str(_Config.PACKAGE_SETORIGIN))
 
     @staticmethod
     def SetTranslationA(input):
         pkg = _Tools.Package(5,input)
         SerialConnection.write(pkg)
-        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def SetTranslationV(input):
         pkg = _Tools.Package(6,input)
         SerialConnection.write(pkg)
-        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def SetRotationV(input):
         pkg = _Tools.Package(10,input)
         SerialConnection.write(pkg)
-        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def Translate(input):
         pkg = _Tools.Package(8,input)
         SerialConnection.write(pkg)
-        print("Package Sent : " + str(pkg))
         
     @staticmethod
     def Rotate(input):
-        pkg = _Tools.Package(9,input)
+        pkg = _Tools.Package(13,input)
         SerialConnection.write(pkg)
-        print("Package Sent : " + str(pkg))
 
     @staticmethod
     def Execute(input):
@@ -211,7 +248,13 @@ class _HMI:
     def Console():
         while True:
             currentinput = input(">")
-            if (_HMI.IsValid(currentinput)):
+            currentinput = currentinput.upper()
+            if(currentinput=="STAT"):
+                print("XPOS          : {}\nYPOS          : {}\nTHPOS         : {}\nRVEL          : {}\nLVEL          : {}\nBATTERY       : {}\nSONARCOUNT    : {}\nSONARS        : {},{}".format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
+            elif(currentinput=="CLOSE"):
+                SerialConnection.close()
+                print("Serial connection closed. Safe to exit.")
+            elif(_HMI.IsValid(currentinput)):
                 _Robot.Execute(currentinput)
             else:
                 if(currentinput == _Config.CONSOLE_READ):
@@ -227,15 +270,21 @@ class _HMI:
             print(_Config.CONSOLE_ERROR)
 
 if __name__ == "__main__":
-    SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT)
+    SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT,write_timeout=0)
     print(SerialConnection.name)
     
     _Robot.Init()
     
+    time.sleep(1)
+    
+    #pkg = _Tools.Package(8,255)
+    #SerialConnection.write(pkg)
+    #print("sent " + str(pkg))
+    
     threads = []
     threads.append(Thread(target=_Robot.Heartbeat,daemon=True))
     threads.append(Thread(target=_Robot.Read,daemon=True))
-    threads.append(Thread(target=_Robot.Write,daemon=True))
+    #threads.append(Thread(target=_Robot.Write,daemon=True))
     threads.append(Thread(target=_HMI.Console,daemon=True))
     #threads.append(Thread(target=_ROS.Subscribe,daemon=True))
     #threads.append(Thread(target=_ROS.Publish,daemon=True))
