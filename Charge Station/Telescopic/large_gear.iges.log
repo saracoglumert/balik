@@ -1,0 +1,57 @@
+﻿IGES to UG
+! INFO-     NX V11.0 / IGES Specification 5.3
+! INFO-      
+! INFO-     Start of Translation: 10-APR-2022  11:35:23 PM
+! INFO-      
+! STATUS-   Converting Part: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\large_gear.iges
+! SUMMARY-   
+! SUMMARY-  Summary of Supported IGES Entities in file
+! SUMMARY-   
+! SUMMARY-  Entity Type                    Count
+! SUMMARY-  -----------                    -----
+! SUMMARY-  B-Spline Curve (126/0-4).....:   471
+! SUMMARY-  B-Spline Surface (128/0-9)...:   159
+! SUMMARY-  Subfigure Definition (308/0).:     1
+! SUMMARY-  Subfigure Instance (408/0)...:     1
+! SUMMARY-  Color Definition (314/0,1)...:     1
+! SUMMARY-  Name (406/15)................:     2
+! SUMMARY-  Manifold Solid B-Rep (186/0).:     1
+! SUMMARY-  Shell (514/*)................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                            637
+! STATUS-    
+! STATUS-   Converting to Output Form (Phase 2 of 3): 10-APR-2022 11:35:23 PM
+! STATUS-    
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:35:23 PM
+! STATUS-    
+! STATUS-   Creating UG solid body from Input Ent Id 5
+! STATUS-    
+! STATUS-   simplifying Bsplines to analytics
+! STATUS-    
+! STATUS-   converting tolerant edges into exact edges
+! STATUS-    
+! STATUS-   doing final check of body to report any faults
+! STATUS-    
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\Spur Gear (26 teeth)
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:35:24 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\large_gear_iges.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Part Attribute ..............:     7
+! SUMMARY-  Component ...................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              8
+! INFO-      
+! INFO-     End of Translation: 10-APR-2022  11:35:24 PM
+! INFO-      

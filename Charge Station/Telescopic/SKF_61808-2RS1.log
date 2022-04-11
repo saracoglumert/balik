@@ -1,0 +1,83 @@
+﻿IGES to UG
+! INFO-     NX V11.0 / IGES Specification 5.3
+! INFO-      
+! INFO-     Start of Translation: 10-APR-2022  11:14:59 PM
+! INFO-      
+! STATUS-   Converting Part: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\SKF_61808-2RS1.igs
+! INFO-     Data from Parasolid IGES Translator 20.0.26, Copyright(c) 2006 Siemens P
+! INFO-     LM Software. All Rights Reserved.                                       
+! SUMMARY-   
+! SUMMARY-  Summary of Supported IGES Entities in file
+! SUMMARY-   
+! SUMMARY-  Entity Type                    Count
+! SUMMARY-  -----------                    -----
+! SUMMARY-  Line (110/0).................:   102
+! SUMMARY-  Circular Arc (100/0).........:   128
+! SUMMARY-  B-Spline Curve (126/0-4).....:   214
+! SUMMARY-  Composite Curve (102/0)......:   104
+! SUMMARY-  Surface of Rev (120/0).......:    32
+! SUMMARY-  Tabulated Cylinder (122/0)...:    10
+! SUMMARY-  Curve of Surface (142/0).....:    52
+! SUMMARY-  Trimmed Surface (144/0)......:    42
+! SUMMARY-  Trans Matrix (124/0,1,10,12).:   148
+! SUMMARY-  Subfigure Definition (308/0).:     4
+! SUMMARY-  Subfigure Instance (408/0)...:    24
+! SUMMARY-                                 -----
+! SUMMARY-  Total                            860
+! STATUS-    
+! STATUS-   Converting to Output Form (Phase 2 of 3): 10-APR-2022 11:14:59 PM
+! STATUS-    
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:14:59 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\DEFAULT
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:    27
+! SUMMARY-                                 -----
+! SUMMARY-  Total                             27
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:15:00 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\DEFAULT_1597.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:    14
+! SUMMARY-                                 -----
+! SUMMARY-  Total                             14
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:15:00 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\DEFAULT_1633.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:15:00 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\DEFAULT_1717.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Component ...................:    23
+! SUMMARY-                                 -----
+! SUMMARY-  Total                             23
+! STATUS-   Creating the UG part (Phase 3 of 3): 10-APR-2022  11:15:00 PM
+! INFO-     Filing Part ..: C:\Users\guven.DESKTOP-V3HIPD7\Desktop\4.Sınıf 2.Dönem (Final Act (Hopefully))\ME462\Charge Station\Telescopic\SKF_61808-2RS1_igs.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Input Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Part Attribute ..............:     9
+! SUMMARY-  Component ...................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                             10
+! INFO-      
+! INFO-     End of Translation: 10-APR-2022  11:15:01 PM
+! INFO-      
