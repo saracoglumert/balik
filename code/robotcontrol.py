@@ -1,3 +1,4 @@
+from pickle import TRUE
 import serial
 import time
 from threading import Thread
@@ -17,14 +18,16 @@ class _Data:
     SONAR1          = 0
     SONAR2          = 0
     
-    COMMANDS        = []
+    COMMAND         = []
 
 class _Config:
     SERIAL_PORT                 = "COM5"
     SERIAL_BAUDRATE             = 9600
     SERIAL_TIMEOUT              = 0.1
 
-    NABIZ                       = 0.1
+    HEARTRATE                   = 0.1
+
+    DEBUG                       = TRUE
 
     PACKAGE_HEADER1             = 'FA'
     PACKAGE_HEADER2             = 'FB'
@@ -49,7 +52,8 @@ class _Config:
     CONSOLE_TRANSLATE_BACKWARD  = "TB"
     CONSOLE_ROTATE_RIGHT        = "RR"
     CONSOLE_ROTATE_LEFT         = "RL"
-    CONSOLE_READ                = "READ"
+    CONSOLE_READ                = "STAT"
+    CONSOLE_SEPERATOR           = ":"
     CONSOLE_ERROR               = "Argument error."
     
     DENEMEPAKET                 = b'\xFA\xFB\x06\x08\x3B\x00\xFF\x09\x3A'
@@ -81,7 +85,8 @@ class _Tools:
 
     @staticmethod
     def Package_Checksum(input):
-        print("Checksum Input  : " + str(input))
+        if(_Config.DEBUG):
+            print("Checksum Input  : " + str(input))
         if (len(input) % 2 == 0 ):
             temp1 = int(input[0]+input[1],16)
             temp2 = int(input[2]+input[3],16)
@@ -91,10 +96,11 @@ class _Tools:
             if (len(temp) % 2 == 1):
                 temp = "0" + temp
             temp2 = [temp[i:i+2] for i in range(0, len(temp), 2)]
-            print("Checksum Output : " + str(temp2[-2:]))
+            if(_Config.DEBUG):
+                print("Checksum Output : " + str(temp2[-2:]))
             return temp2[-2:]
         else:
-            print("xor kullan")
+            print("XOR")
             return 0
     
     @staticmethod
@@ -114,7 +120,8 @@ class _Tools:
         temp += _Tools.Package_Arguments(abs(argument))
         temp += _Tools.Package_Checksum(temp[3:])
 
-        print("Package Sent    : " + str(temp))
+        if(_Config.DEBUG):
+            print("Package         : " + str(temp))
 
         return bytes.fromhex("".join(temp))
 
@@ -141,7 +148,7 @@ class _Robot:
     def Heartbeat():
         while True:
             SerialConnection.write(_Config.PACKAGE_PULSE)
-            time.sleep(_Config.NABIZ)
+            time.sleep(_Config.HEARTRATE)
     
     @staticmethod
     def Read():
@@ -232,7 +239,7 @@ class _HMI:
         while True:
             currentinput = input(">")
             currentinput = currentinput.upper()
-            if(currentinput=="STAT"):
+            if(currentinput==_Config.CONSOLE_READ):
                 print("XPOS          : {}\nYPOS          : {}\nTHPOS         : {}\nRVEL          : {}\nLVEL          : {}\nBATTERY       : {}\nSONARCOUNT    : {}\nSONARS        : {},{}".format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
             elif(currentinput=="CLOSE"):
                 SerialConnection.close()
@@ -240,10 +247,7 @@ class _HMI:
             elif(_HMI.IsValid(currentinput)):
                 _Robot.Execute(currentinput)
             else:
-                if(currentinput == _Config.CONSOLE_READ):
-                    print("read")
-                else:
-                    print(_Config.CONSOLE_ERROR)
+                print(_Config.CONSOLE_ERROR)
 
     @staticmethod
     def Queue(input):
