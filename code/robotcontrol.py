@@ -55,6 +55,7 @@ class _Config:
     CONSOLE_READ                = "STAT"
     CONSOLE_SEPERATOR           = ":"
     CONSOLE_ERROR               = "Argument error."
+    CONSOLE_STATUS_MESSAGE      = "XPOS          : {}\nYPOS          : {}\nTHPOS         : {}\nRVEL          : {}\nLVEL          : {}\nBATTERY       : {}\nSONARCOUNT    : {}\nSONARS        : {},{}"
     
     DENEMEPAKET                 = b'\xFA\xFB\x06\x08\x3B\x00\xFF\x09\x3A'
     
@@ -211,7 +212,7 @@ class _Robot:
 
     @staticmethod
     def Execute(input):
-        if(_HMI.IsValid(input)):
+        if(_HMI.IsValid(input) == 1):
             header = input[:2]
             argument = int(input[2:])
             match header:
@@ -223,16 +224,44 @@ class _Robot:
                     _Robot.Rotate(-argument)
                 case _Config.CONSOLE_ROTATE_LEFT:
                     _Robot.Rotate(argument)
+        elif(_HMI.IsValid(input) == 2):
+            cmds = input.split(_Config.CONSOLE_SEPERATOR)
+            for cmd in cmds:
+                header = cmd[:2]
+                argument = int(cmd[2:])
+                match header:
+                    case _Config.CONSOLE_TRANSLATE_FORWARD:
+                        _Robot.Translate(argument)
+                    case _Config.CONSOLE_TRANSLATE_BACKWARD:
+                        _Robot.Translate(-argument)
+                    case _Config.CONSOLE_ROTATE_RIGHT:
+                        _Robot.Rotate(-argument)
+                    case _Config.CONSOLE_ROTATE_LEFT:
+                        _Robot.Rotate(argument)
+            pass
 
 class _HMI:
     @staticmethod
     def IsValid(input):
-        header = input[:2]
-        argument = input[2:]
-        if (argument.isnumeric()):
-            return True
-        else:
-            return False
+        if _Config.CONSOLE_SEPERATOR in input:
+            input2 = input.split(_Config.CONSOLE_SEPERATOR)
+            temp = 1
+            for element in input2:
+                argument = element[2:]
+                if (argument.isnumeric()):
+                    temp = temp*1
+                else:
+                    temp = temp*(-1)
+            if (temp == 1):
+                return 2
+            else:
+                return 0
+        elif _Config.CONSOLE_SEPERATOR not in input:
+            argument = input[2:]
+            if (argument.isnumeric()):
+                return 1
+            else:
+                return 0
     
     @staticmethod
     def Console():
@@ -240,7 +269,7 @@ class _HMI:
             currentinput = input(">")
             currentinput = currentinput.upper()
             if(currentinput==_Config.CONSOLE_READ):
-                print("XPOS          : {}\nYPOS          : {}\nTHPOS         : {}\nRVEL          : {}\nLVEL          : {}\nBATTERY       : {}\nSONARCOUNT    : {}\nSONARS        : {},{}".format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
+                print(_Config.CONSOLE_STATUS_MESSAGE.format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
             elif(currentinput=="CLOSE"):
                 SerialConnection.close()
                 print("Serial connection closed. Safe to exit.")
