@@ -2,8 +2,6 @@ from pickle import TRUE
 import serial
 import time
 from threading import Thread
-import sys
-import os
 
 class _Data:
     SYNC            = False
@@ -34,6 +32,7 @@ class _Config:
     PACKAGE_ARG_TYPE_POSITIVE   = "3B"
     PACKAGE_ARG_TYPE_NEGATIVE   = "1B"
     PACKAGE_BYTE_COUNT          = "06"
+    PACKAGE_PREFIX              = "0x"
     PACKAGE_SYNC1               = b'\xFA\xFB\x03\x00\x00\x00'
     PACKAGE_SYNC2               = b'\xFA\xFB\x03\x01\x00\x01'
     PACKAGE_SYNC3               = b'\xFA\xFB\x03\x02\x00\x02'
@@ -67,7 +66,7 @@ class _Tools:
     @staticmethod
     def Package_Command(input):
         temp = str(hex(input))
-        temp = temp.replace("0x","")
+        temp = temp.replace(_Config.PACKAGE_PREFIX,"")
         if (len(temp) == 1):
             temp = "0" + temp
         temp = temp.upper()
@@ -78,7 +77,7 @@ class _Tools:
         temp2 = []
         temp = input.to_bytes(2,"little")
         for element in temp:
-            temp3 = hex(element).replace("0x","").upper()
+            temp3 = hex(element).replace(_Config.PACKAGE_PREFIX,"").upper()
             if (len(temp3) == 1):
                 temp3 = "0" + temp3
             temp2.append(temp3)
@@ -92,7 +91,7 @@ class _Tools:
             temp1 = int(input[0]+input[1],16)
             temp2 = int(input[2]+input[3],16)
             temp = hex(temp1 + temp2)
-            temp = temp.replace("0x","")
+            temp = temp.replace(_Config.PACKAGE_PREFIX,"")
             temp = temp.upper()
             if (len(temp) % 2 == 1):
                 temp = "0" + temp
@@ -243,6 +242,7 @@ class _Robot:
 class _HMI:
     @staticmethod
     def IsValid(input):
+        input = input.upper()
         if _Config.CONSOLE_SEPERATOR in input:
             input2 = input.split(_Config.CONSOLE_SEPERATOR)
             temp = 1
