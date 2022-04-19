@@ -1,3 +1,4 @@
+from distutils.log import debug
 from pickle import TRUE
 import serial
 import time
@@ -24,9 +25,11 @@ class _Config:
     SERIAL_TIMEOUT              = 0.1
 
     HEARTRATE                   = 0.1
+    WAIT                        = 0.5
 
     DEBUG                       = TRUE
 
+    PACKAGE_ENDIAN              = "little"
     PACKAGE_HEADER1             = 'FA'
     PACKAGE_HEADER2             = 'FB'
     PACKAGE_ARG_TYPE_POSITIVE   = "3B"
@@ -47,15 +50,22 @@ class _Config:
     PACKAGE_CLOSE               = b'\xFA\xFB\x03\x02\x00\x02'
     PACKAGE_SETORIGIN           = b'\xFA\xFB\x03\x07\x00\x07'
 
+    CONSOLE_CURSOR              = ">"
     CONSOLE_TRANSLATE_FORWARD   = "TF"
     CONSOLE_TRANSLATE_BACKWARD  = "TB"
     CONSOLE_ROTATE_RIGHT        = "RR"
     CONSOLE_ROTATE_LEFT         = "RL"
     CONSOLE_READ                = "STAT"
+    CONSOLE_CLOSE               = "CLOSE"
+    CONSOLE_TEST                = "TEST"
     CONSOLE_SEPERATOR           = ":"
     CONSOLE_ERROR               = "Argument error."
     CONSOLE_STATUS_MESSAGE      = "XPOS          : {}\nYPOS          : {}\nTHPOS         : {}\nRVEL          : {}\nLVEL          : {}\nBATTERY       : {}\nSONARCOUNT    : {}\nSONARS        : {},{}"
     
+    DEBUG_CHECKSUM_INPUT        = "Input checksum   : {}"
+    DEBUG_CHECKSUM_OUTPUT       = "Output checksum  : {}"
+    DEBUG_PACKAGE_CONTENT       = "Package content  : {}"
+    DEBUG_XOR                   = "Unexpected case. Use XOR."
     DENEMEPAKET                 = b'\xFA\xFB\x06\x08\x3B\x00\xFF\x09\x3A'
     
 class _Tools:
@@ -75,7 +85,7 @@ class _Tools:
     @staticmethod
     def Package_Arguments(input):
         temp2 = []
-        temp = input.to_bytes(2,"little")
+        temp = input.to_bytes(2,_Config.PACKAGE_ENDIAN)
         for element in temp:
             temp3 = hex(element).replace(_Config.PACKAGE_PREFIX,"").upper()
             if (len(temp3) == 1):
@@ -86,7 +96,7 @@ class _Tools:
     @staticmethod
     def Package_Checksum(input):
         if(_Config.DEBUG):
-            print("Checksum Input  : " + str(input))
+            print(_Config.DEBUG_CHECKSUM_INPUT.format(str(input)))
         if (len(input) % 2 == 0 ):
             temp1 = int(input[0]+input[1],16)
             temp2 = int(input[2]+input[3],16)
@@ -97,10 +107,11 @@ class _Tools:
                 temp = "0" + temp
             temp2 = [temp[i:i+2] for i in range(0, len(temp), 2)]
             if(_Config.DEBUG):
-                print("Checksum Output : " + str(temp2[-2:]))
+                print(_Config.DEBUG_CHECKSUM_OUTPUT.format(str(temp2[-2:])))
             return temp2[-2:]
         else:
-            print("XOR")
+            if(_Config.DEBUG):
+                print(_Config.DEBUG_XOR)
             return 0
     
     @staticmethod
@@ -121,7 +132,7 @@ class _Tools:
         temp += _Tools.Package_Checksum(temp[3:])
 
         if(_Config.DEBUG):
-            print("Package         : " + str(temp))
+            print(_Config.DEBUG_PACKAGE_CONTENT.format(str(temp)))
 
         return bytes.fromhex("".join(temp))
 
@@ -132,14 +143,14 @@ class _Robot:
         SerialConnection.write(_Config.PACKAGE_SYNC2)
         SerialConnection.write(_Config.PACKAGE_SYNC3)
         print("[OK] Sync")
-        time.sleep(0.5)
+        time.sleep(_Config.WAIT)
         SerialConnection.write(_Config.PACKAGE_OPEN)
         _Data.SYNC = True
         print("[OK] Connection Open")
-        time.sleep(1)
+        time.sleep(_Config.WAIT)
         SerialConnection.write(_Tools.Package(28,1))
         print("[OK] Sonars Enabled")
-        time.sleep(1)
+        time.sleep(_Config.WAIT)
         SerialConnection.write(_Tools.Package(4,1))
         print("[OK] Motors Enabled")
         _Data.MOTOR_STATUS = True
@@ -161,15 +172,15 @@ class _Robot:
                 else:
                     temp += current
             try:
-                _Data.XPOS = int.from_bytes(temp[3:5], "little",signed=True)*-1
-                _Data.YPOS = int.from_bytes(temp[5:7], "little",signed=True)*-1
-                _Data.THPOS = int.from_bytes(temp[7:9], "little",signed=True)*-1
-                _Data.LVEL = int.from_bytes(temp[9:11], "little",signed=True)*-1
-                _Data.RVEL = int.from_bytes(temp[11:13], "little",signed=True)*-1
+                _Data.XPOS = int.from_bytes(temp[3:5], _Config.PACKAGE_ENDIAN,signed=True)*-1
+                _Data.YPOS = int.from_bytes(temp[5:7], _Config.PACKAGE_ENDIAN,signed=True)*-1
+                _Data.THPOS = int.from_bytes(temp[7:9], _Config.PACKAGE_ENDIAN,signed=True)*-1
+                _Data.LVEL = int.from_bytes(temp[9:11], _Config.PACKAGE_ENDIAN,signed=True)*-1
+                _Data.RVEL = int.from_bytes(temp[11:13], _Config.PACKAGE_ENDIAN,signed=True)*-1
                 _Data.BATTERY = temp[13]/10
                 _Data.SONARCOUNT = temp[21]
-                _Data.SONAR1 = int.from_bytes(temp[24], "little",signed=False)
-                _Data.SONAR2 = int.from_bytes(temp[25], "little",signed=False)
+                _Data.SONAR1 = int.from_bytes(temp[24], _Config.PACKAGE_ENDIAN,signed=False)
+                _Data.SONAR2 = int.from_bytes(temp[25], _Config.PACKAGE_ENDIAN,signed=False)
             except:
                 pass
 
@@ -237,8 +248,14 @@ class _Robot:
                         _Robot.Rotate(-argument)
                     case _Config.CONSOLE_ROTATE_LEFT:
                         _Robot.Rotate(argument)
-            pass
 
+    @staticmethod
+    def Test():
+        _Robot.Translate(1000)
+        _Robot.Rotate(45)
+        _Robot.Translate(250)
+        _Robot.Rotate(-30)  
+        
 class _HMI:
     @staticmethod
     def IsValid(input):
@@ -266,24 +283,28 @@ class _HMI:
     @staticmethod
     def Console():
         while True:
-            currentinput = input(">")
+            currentinput = input(_Config.CONSOLE_CURSOR)
             currentinput = currentinput.upper()
-            if(currentinput==_Config.CONSOLE_READ):
-                print(_Config.CONSOLE_STATUS_MESSAGE.format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
-            elif(currentinput=="CLOSE"):
-                SerialConnection.close()
-                print("Serial connection closed. Safe to exit.")
-            elif(_HMI.IsValid(currentinput)):
+            if(_HMI.IsValid(currentinput)):
                 _Robot.Execute(currentinput)
             else:
-                print(_Config.CONSOLE_ERROR)
+                match currentinput:
+                    case _Config.CONSOLE_READ:
+                        print(_Config.CONSOLE_STATUS_MESSAGE.format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
+                    case _Config.CONSOLE_CLOSE:
+                        SerialConnection.close()
+                        thread.interrupt_main()
+                    case _Config.CONSOLE_TEST:
+                        _Robot.Test()
+                    case _:
+                        print(_Config.CONSOLE_ERROR)
 
     @staticmethod
     def Queue(input):
         if (_HMI.IsValid(input)):
             _Data.COMMANDS.append(input)
         else:
-            print(_Config.CONSOLE_ERROR)
+            print(_Config.CONSOLE_ERROR)            
 
 if __name__ == "__main__":
     SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT,write_timeout=0)
@@ -291,7 +312,7 @@ if __name__ == "__main__":
     
     _Robot.Init()
     
-    time.sleep(1)
+    time.sleep(_Config.WAIT)
     
     #pkg = _Tools.Package(8,255)
     #SerialConnection.write(pkg)
