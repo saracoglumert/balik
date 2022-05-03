@@ -5,6 +5,9 @@ sudo apt install openssh-server
 # Install Avahi
 sudo apt install avahi-daemon
 
+# Update and Upgrade
+sudo apt update && sudo apt upgrade
+
 ## Install ROS2
 # Add PGP Key
 sudo apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
