@@ -1,4 +1,8 @@
 ## Configure OS ##
+
+#Change Hostname
+sudo nano /etc/hostname
+
 #Install SSH Server
 sudo apt install openssh-server
 
