@@ -265,10 +265,11 @@ class _HMI:
             input2 = input.split(_Config.CONSOLE_SEPERATOR)
             temp = 1
             for element in input2:
+                header = element[:2]
                 argument = element[2:]
                 if (argument.isnumeric()):
                     temp = temp*1
-                elif(len(argument) == 0):
+                elif(header == _Config.CONSOLE_WAIT and len(argument) == 0):
                     temp = temp*1
                 else:
                     temp = temp*(-1)
