@@ -51,8 +51,8 @@ class _Config:
     PACKAGE_CLOSE               = b'\xFA\xFB\x03\x02\x00\x02'
     PACKAGE_SETORIGIN           = b'\xFA\xFB\x03\x07\x00\x07'
 
-    WAITCOEFF_TRANSLATION       = 2
-    WAITCOEFF_ROTATION          = 3
+    WAITCOEFF_TRANSLATION       = 2.5
+    WAITCOEFF_ROTATION          = 35
 
     CONSOLE_CURSOR              = ">"
     CONSOLE_TRANSLATE_FORWARD   = "TF"
