@@ -238,11 +238,10 @@ class _Robot:
             cmds = input.split(_Config.CONSOLE_SEPERATOR)
             for cmd in cmds:
                 header = cmd[:2]
-                print("AAAAAAAAAAAAAAA : " + cmd[2:])
-                if not cmd[2:]:
-                    argument = int(cmd[2:])
+                if (header == _Config.CONSOLE_WAIT and len(cmd[2:]) == 0):
+                    argument = 5000
                 else:
-                    argument = 0
+                    argument = int(cmd[2:])
                 if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
                     _Robot.Translate(argument)
                 if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
