@@ -20,7 +20,7 @@ class _Data:
     COMMAND         = []
 
 class _Config:
-    SERIAL_PORT                 = "COM5"
+    SERIAL_PORT                 = "/dev/ttyUSB0"
     SERIAL_BAUDRATE             = 9600
     SERIAL_TIMEOUT              = 0.1
 
@@ -55,6 +55,7 @@ class _Config:
     CONSOLE_TRANSLATE_BACKWARD  = "TB"
     CONSOLE_ROTATE_RIGHT        = "RR"
     CONSOLE_ROTATE_LEFT         = "RL"
+    CONSOLE_WAIT                = "WW"
     CONSOLE_READ                = "STAT"
     CONSOLE_CLOSE               = "CLOSE"
     CONSOLE_TEST                = "TEST"
@@ -246,6 +247,8 @@ class _Robot:
                     _Robot.Rotate(-argument)
                 if(header == _Config.CONSOLE_ROTATE_LEFT):
                     _Robot.Rotate(argument)
+                if(header == _Config.CONSOLE_WAIT):
+                    time.sleep(argument/1000)
 
     @staticmethod
     def Test():
