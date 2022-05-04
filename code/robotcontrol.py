@@ -242,6 +242,7 @@ class _Robot:
                 _Robot.Rotate(-argument)
             if(header == _Config.CONSOLE_ROTATE_LEFT):
                 _Robot.Rotate(argument)
+            _Data.LASTCOMMAND = input
         elif(_HMI.IsValid(input) == 2):
             cmds = input.split(_Config.CONSOLE_SEPERATOR)
             for cmd in cmds:
@@ -260,7 +261,8 @@ class _Robot:
                     _Robot.Rotate(argument)
                 if(header == _Config.CONSOLE_WAIT):
                     time.sleep(argument/1000)
-        _Data.LASTCOMMAND = input
+                _Data.LASTCOMMAND = cmd
+
 
     @staticmethod
     def Test():
