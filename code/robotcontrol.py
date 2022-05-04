@@ -225,7 +225,10 @@ class _Robot:
     def Execute(input):
         if(_HMI.IsValid(input) == 1):
             header = input[:2]
-            argument = int(input[2:])
+            if (len(input[2:]) > 0):
+                argument = int(input[2:])
+            else:
+                argument = 0
             if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
                 _Robot.Translate(argument)
             if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
