@@ -247,7 +247,7 @@ class _Robot:
             for cmd in cmds:
                 header = cmd[:2]
                 if (header == _Config.CONSOLE_WAIT and len(cmd[2:]) == 0):
-                    argument = _Tools.CalculateDuration(input)
+                    argument = _Tools.CalculateDuration(_Data.LASTCOMMAND)
                 else:
                     argument = int(cmd[2:])
                 if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
