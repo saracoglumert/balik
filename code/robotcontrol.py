@@ -225,6 +225,7 @@ class _Robot:
     def Execute(input):
         if(_HMI.IsValid(input) == 1):
             header = input[:2]
+            print("ARGUMENTT" + input[2:])
             if (len(input[2:]) > 0):
                 argument = int(input[2:])
             else:
