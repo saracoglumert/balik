@@ -18,6 +18,7 @@ class _Data:
     SONAR2          = 0
     
     COMMAND         = []
+    LASTCOMMAND     = ""
 
 class _Config:
     SERIAL_PORT                 = "/dev/ttyUSB0"
@@ -49,6 +50,9 @@ class _Config:
     PACKAGE_SONAR_DISABLE       = b'\xFA\xFB\x06\x28\x3B\x00\x01\x28\x3B'
     PACKAGE_CLOSE               = b'\xFA\xFB\x03\x02\x00\x02'
     PACKAGE_SETORIGIN           = b'\xFA\xFB\x03\x07\x00\x07'
+
+    WAITCOEFF_TRANSLATION       = 2
+    WAITCOEFF_ROTATION          = 3
 
     CONSOLE_CURSOR              = ">"
     CONSOLE_TRANSLATE_FORWARD   = "TF"
@@ -137,6 +141,17 @@ class _Tools:
 
         return bytes.fromhex("".join(temp))
 
+    @staticmethod
+    def CalculateDuration(input):
+        header = input[:2]
+        argument = int(input[2:])
+        if (header[0] == "T"):
+            return argument*_Config.WAITCOEFF_TRANSLATION
+        elif (header[0] == "R"):
+            return argument*_Config.WAITCOEFF_ROTATION
+        else:
+            return 0
+
 class _Robot:
     @staticmethod
     def Init():
@@ -186,13 +201,6 @@ class _Robot:
                 pass
 
     @staticmethod
-    def Write():
-        while True:
-            if (len(_Data.COMMANDS) > 0):
-                for command in _Data.COMMANDS:
-                    _Robot.Execute(command)
-
-    @staticmethod
     def SetOrigin():
         SerialConnection.write(_Config.PACKAGE_SETORIGIN)
 
@@ -239,7 +247,7 @@ class _Robot:
             for cmd in cmds:
                 header = cmd[:2]
                 if (header == _Config.CONSOLE_WAIT and len(cmd[2:]) == 0):
-                    argument = 5000
+                    argument = _Tools.CalculateDuration(input)
                 else:
                     argument = int(cmd[2:])
                 if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
@@ -252,6 +260,7 @@ class _Robot:
                     _Robot.Rotate(argument)
                 if(header == _Config.CONSOLE_WAIT):
                     time.sleep(argument/1000)
+        _Data.LASTCOMMAND = input
 
     @staticmethod
     def Test():
@@ -303,14 +312,7 @@ class _HMI:
                 if (currentinput == _Config.CONSOLE_TEST):
                     _Robot.Test()
                 else:
-                    print(_Config.CONSOLE_ERROR)
-
-    @staticmethod
-    def Queue(input):
-        if (_HMI.IsValid(input)):
-            _Data.COMMANDS.append(input)
-        else:
-            print(_Config.CONSOLE_ERROR)            
+                    print(_Config.CONSOLE_ERROR)    
 
 if __name__ == "__main__":
     SerialConnection = serial.Serial(_Config.SERIAL_PORT,baudrate=_Config.SERIAL_BAUDRATE, timeout=_Config.SERIAL_TIMEOUT,write_timeout=0)
