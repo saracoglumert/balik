@@ -225,7 +225,6 @@ class _Robot:
     def Execute(input):
         if(_HMI.IsValid(input) == 1):
             header = input[:2]
-            print("ARGUMENTT" + input[2:])
             if (len(input[2:]) > 0):
                 argument = int(input[2:])
             else:
@@ -242,7 +241,10 @@ class _Robot:
             cmds = input.split(_Config.CONSOLE_SEPERATOR)
             for cmd in cmds:
                 header = cmd[:2]
-                argument = int(cmd[2:])
+                if (len(input[2:]) > 0):
+                    argument = int(cmd[2:])
+                else:
+                    argument = 0
                 if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
                     _Robot.Translate(argument)
                 if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
