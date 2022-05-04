@@ -239,7 +239,7 @@ class _Robot:
             for cmd in cmds:
                 header = cmd[:2]
                 print("AAAAAAAAAAAAAAA : " + cmd[2:])
-                if (len(input[2:]) > 0):
+                if not cmd[2:]:
                     argument = int(cmd[2:])
                 else:
                     argument = 0
