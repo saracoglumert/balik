@@ -225,7 +225,7 @@ class _Robot:
     def Execute(input):
         if(_HMI.IsValid(input) == 1):
             header = input[:2]
-            argument = int(input[2:])
+            argument = input[2:]
             if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
                 _Robot.Translate(argument)
             if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
@@ -267,6 +267,8 @@ class _HMI:
             for element in input2:
                 argument = element[2:]
                 if (argument.isnumeric()):
+                    temp = temp*1
+                elif(len(argument) == 0):
                     temp = temp*1
                 else:
                     temp = temp*(-1)
