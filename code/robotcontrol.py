@@ -225,29 +225,27 @@ class _Robot:
         if(_HMI.IsValid(input) == 1):
             header = input[:2]
             argument = int(input[2:])
-            match header:
-                case _Config.CONSOLE_TRANSLATE_FORWARD:
-                    _Robot.Translate(argument)
-                case _Config.CONSOLE_TRANSLATE_BACKWARD:
-                    _Robot.Translate(-argument)
-                case _Config.CONSOLE_ROTATE_RIGHT:
-                    _Robot.Rotate(-argument)
-                case _Config.CONSOLE_ROTATE_LEFT:
-                    _Robot.Rotate(argument)
+            if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
+                _Robot.Translate(argument)
+            if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
+                _Robot.Translate(-argument)
+            if(header == _Config.CONSOLE_ROTATE_RIGHT):
+                _Robot.Rotate(-argument)
+            if(header == _Config.CONSOLE_ROTATE_LEFT):
+                _Robot.Rotate(argument)
         elif(_HMI.IsValid(input) == 2):
             cmds = input.split(_Config.CONSOLE_SEPERATOR)
             for cmd in cmds:
                 header = cmd[:2]
                 argument = int(cmd[2:])
-                match header:
-                    case _Config.CONSOLE_TRANSLATE_FORWARD:
-                        _Robot.Translate(argument)
-                    case _Config.CONSOLE_TRANSLATE_BACKWARD:
-                        _Robot.Translate(-argument)
-                    case _Config.CONSOLE_ROTATE_RIGHT:
-                        _Robot.Rotate(-argument)
-                    case _Config.CONSOLE_ROTATE_LEFT:
-                        _Robot.Rotate(argument)
+                if(header ==_Config.CONSOLE_TRANSLATE_FORWARD):
+                    _Robot.Translate(argument)
+                if(header == _Config.CONSOLE_TRANSLATE_BACKWARD):
+                    _Robot.Translate(-argument)
+                if(header == _Config.CONSOLE_ROTATE_RIGHT):
+                    _Robot.Rotate(-argument)
+                if(header == _Config.CONSOLE_ROTATE_LEFT):
+                    _Robot.Rotate(argument)
 
     @staticmethod
     def Test():
@@ -288,16 +286,15 @@ class _HMI:
             if(_HMI.IsValid(currentinput)):
                 _Robot.Execute(currentinput)
             else:
-                match currentinput:
-                    case _Config.CONSOLE_READ:
-                        print(_Config.CONSOLE_STATUS_MESSAGE.format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
-                    case _Config.CONSOLE_CLOSE:
-                        SerialConnection.close()
-                        thread.interrupt_main()
-                    case _Config.CONSOLE_TEST:
-                        _Robot.Test()
-                    case _:
-                        print(_Config.CONSOLE_ERROR)
+                if (currentinput == _Config.CONSOLE_READ):
+                    print(_Config.CONSOLE_STATUS_MESSAGE.format(_Data.XPOS,_Data.YPOS,_Data.THPOS,_Data.RVEL,_Data.LVEL,_Data.BATTERY,_Data.SONARCOUNT,_Data.SONAR1,_Data.SONAR2))
+                if (currentinput == _Config.CONSOLE_CLOSE):
+                    SerialConnection.close()
+                    thread.interrupt_main()
+                if (currentinput == _Config.CONSOLE_TEST):
+                    _Robot.Test()
+                else:
+                    print(_Config.CONSOLE_ERROR)
 
     @staticmethod
     def Queue(input):
