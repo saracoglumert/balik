@@ -263,7 +263,6 @@ class _Robot:
                     time.sleep(argument/1000)
                 _Data.LASTCOMMAND = cmd
 
-
     @staticmethod
     def Test():
         _Robot.Translate(1000)
