@@ -1,0 +1,138 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.4288441900904362 -0.49616281789813516 -0.7549272274604087 4.6692567051403495
+  position -3.2448614660675776 -9.609869536380717 13.247437065366379
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Group {
+  children [
+    Wall {
+      translation 0 3.6625 0
+      rotation 0 0 1 -1.5707953071795862
+      name "outer_wall"
+      size 0.2 11.07 2.4
+    }
+    Wall {
+      translation -2 -3.6624 0
+      rotation 0 0 1 -1.5707953071795862
+      name "inner_wall_left"
+      size 0.2 7.07 2.4
+    }
+    Wall {
+      translation 4.04 -3.6624 0
+      rotation 0 0 1 -1.5707953071795862
+      name "inner_wall_right"
+      size 0.2 3.01 2.4
+    }
+    Door {
+      translation 2.035 -3.6624 0
+      rotation 0 0 1 1.5708
+    }
+    Wall {
+      translation -5.435 0 0
+      name "left_wall"
+      size 0.2 7.125 2.4
+    }
+    Wall {
+      translation 5.435 0 0
+      name "right_wall"
+      size 0.2 7.125 2.4
+    }
+    Floor {
+      size 10.67 7.125
+    }
+  ]
+}
+Group {
+  children [
+    Table {
+      translation 4.6 1.53 0
+      name "right_table_1"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation 4.6 -1.34 0
+      name "right_table_2"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation -0.76 -2.01 0
+      rotation 0 1 0 0
+      name "office_table_1"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation -2.84 -2.01 0
+      rotation 0 1 0 0
+      name "office_table_2"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation -3.96 -2.01 0
+      rotation 0 1 0 0
+      name "office_table_3"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation -0.09 2.53 0
+      rotation 0 0 1 -1.5707953071795862
+      name "office_table_4"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation -2.97 2.53 0
+      rotation 0 0 1 -1.5707953071795862
+      name "office_table_5"
+      size 1 2.8 0.74
+    }
+    Table {
+      translation 2.26 2.89 0
+      rotation 0 0 1 -1.5707953071795862
+      name "robotarm_table"
+      size 1.25 1.25 0.74
+    }
+    Table {
+      translation 0.74 -3.25 0
+      rotation 0 0 1 -1.5707953071795862
+      name "soldering_table"
+      size 0.6 1.25 0.74
+    }
+    Table {
+      translation 0.95 -1.54 0
+      rotation 0 0 1 -1.5707953071795862
+      name "drill_table"
+      size 0.6 1.7 0.74
+    }
+  ]
+}
+Group {
+  children [
+    Panel {
+      translation -0.22 -3.43 0.29
+      name "panel_1"
+      size 0.05 2.8 1.5
+    }
+    Panel {
+      translation -3.41 -3.43 0.29
+      name "panel_2"
+      size 0.05 2.8 1.5
+    }
+    Panel {
+      translation -1.48 1.98 0.29
+      rotation 0 0 1 -1.5707953071795862
+      name "panel_3"
+      size 0.05 2.8 1.5
+    }
+    Panel {
+      translation -4.37 1.98 0.29
+      rotation 0 0 1 -1.5707953071795862
+      name "panel_4"
+      size 0.05 2.8 1.5
+    }
+  ]
+}

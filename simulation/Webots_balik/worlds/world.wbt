@@ -1,0 +1,2925 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.8238295998448036 0.5277483998279666 0.206848777851288 1.9468375753401501
+  position -6.863653098588827 5.464285620642931 9.832546169898578
+  follow "Pioneer 3-DX"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Solid {
+  rotation 1 0 0 -1.570795613280012
+  children [
+    Solid {
+      translation 0 0 2.4
+      rotation 1 0 0 3.14159
+      children [
+        Transform {
+          translation 0 1 0
+          children [
+            Transform {
+              children [
+                Transform {
+                  children [
+                    DEF LAMP_DEF Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    DEF LAMP_DEF Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 3.5 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(1)"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(1)"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 7 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(2)"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(2)"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+            Transform {
+              translation 0 3 0
+              children [
+                Transform {
+                  children [
+                    DEF LAMP_DEF Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(2)1"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(2)2"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 3.5 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(3)2"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(3)2"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 7 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(3)3"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(3)3"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+            Transform {
+              translation 0 6 0
+              children [
+                Transform {
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(3)4"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(3)4"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 3.5 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(3)5"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(3)5"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 7 0 0
+                  children [
+                    Solid {
+                      translation -4 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp1(3)6"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                    Solid {
+                      translation -3 -4 0
+                      children [
+                        PointLight {
+                          attenuation 0 0 1
+                        }
+                        DEF CYLINDER_RIGHT Transform {
+                          translation 0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            DEF LIGHT_SHAPE Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.87 0.72 0.58
+                                metalness 0
+                                emissiveColor 0.93 0.93 0.93
+                                emissiveIntensity 10
+                              }
+                              geometry Cylinder {
+                                height 1
+                                radius 0.01
+                              }
+                            }
+                          ]
+                        }
+                        DEF CYLINDER_LEFT Transform {
+                          translation -0.015 0 0.055
+                          rotation 1 0 0 4.712388966
+                          children [
+                            USE LIGHT_SHAPE
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            DEF CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Cylinder {
+                                height 0.012
+                                radius 0.012
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 -0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation 0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        Transform {
+                          translation -0.015 0.5 0.055
+                          rotation 1 0 0 0
+                          children [
+                            USE CONNECTOR
+                          ]
+                        }
+                        DEF BASE Transform {
+                          translation 0 0 0.02
+                          children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.04 1.02 0.04
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 0.5 0.04
+                          children [
+                            DEF BOX_CONNECTOR Shape {
+                              appearance PBRAppearance {
+                                baseColorMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_base_color.jpg"
+                                  ]
+                                }
+                                roughnessMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_roughness.jpg"
+                                  ]
+                                }
+                                normalMap ImageTexture {
+                                  url [
+                                    "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/brushed_aluminium/brushed_aluminium_normal.jpg"
+                                  ]
+                                }
+                              }
+                              geometry Box {
+                                size 0.03 0.03 0.011
+                              }
+                            }
+                          ]
+                        }
+                        Transform {
+                          translation 0 -0.5 0.04
+                          children [
+                            USE BOX_CONNECTOR
+                          ]
+                        }
+                      ]
+                      name "lamp2(3)6"
+                      model "double fuorescent lamp"
+                      boundingObject Group {
+                        children [
+                          USE BASE
+                          USE CYLINDER_RIGHT
+                          USE CYLINDER_LEFT
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        DEF CEILING_SHAPE Shape {
+          appearance PBRAppearance {
+            roughness 1
+            metalness 0
+            normalMap ImageTexture {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/roughcast/roughcast_normal.png"
+              ]
+            }
+            textureTransform TextureTransform {
+              scale 10 10
+            }
+          }
+          geometry Plane {
+            size 10 10
+          }
+        }
+      ]
+      name "ceiling"
+      model "ceiling"
+      boundingObject USE CEILING_SHAPE
+      locked TRUE
+    }
+    Wall {
+      translation 4.9 0 0
+      name "wall1"
+      size 0.2 10 2.4
+    }
+    Wall {
+      translation -4.9 0 0
+      name "wall2"
+      size 0.2 10 2.4
+    }
+    Wall {
+      translation 0 4.9 0
+      rotation 0 0 1 1.5707996938995747
+      name "wall3"
+      size 0.2 9.6 2.4
+    }
+    Wall {
+      translation 0 -4.9 0
+      rotation 0 0 1 1.5707996938995747
+      name "wall4"
+      size 0.2 9.6 2.4
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/parquetry/chequered_parquetry_base_color.jpg"
+          ]
+        }
+        roughness 1
+        roughnessMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/parquetry/chequered_parquetry_roughness.jpg"
+          ]
+        }
+        metalness 0
+        normalMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/parquetry/chequered_parquetry_normal.jpg"
+          ]
+        }
+        occlusionMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/appearances/protos/textures/parquetry/chequered_parquetry_occlusion.jpg"
+          ]
+        }
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [
+            -5 -5 0
+            5 -5 0
+            -5 5 0
+            5 5 0
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 0
+            20 0
+            0 20
+            20 20
+          ]
+        }
+        coordIndex [
+          2, 0, 1, 3, -1
+        ]
+        texCoordIndex [
+          2, 0, 1, 3, -1
+        ]
+      }
+    }
+  ]
+  name "floor"
+  model "floor"
+  boundingObject Plane {
+    size 10 10
+  }
+  locked TRUE
+}
+Pioneer3dx {
+  translation 0 0.42 0.0975
+  rotation -0.9999999999999999 0 0 1.5707953071795862
+  controller "<extern>"
+}
