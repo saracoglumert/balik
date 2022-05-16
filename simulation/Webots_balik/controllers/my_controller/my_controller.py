@@ -40,7 +40,7 @@ while robot.step(timestep) != -1:
     # Enter here functions to read sensor data, like:
     #  val = ds.getValue()
     reading=so[4].getValue()
-    image=fisheye.getImage();
+    image=fisheye.getImage()
 
     # Process sensor data here.
     print(reading)

@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.11931155143077661 0.12302470403459974 0.9852053978193482 2.36924670287101
-  position 2.473569212870805 -2.369724481571141 1.4973912830668032
+  orientation -0.3544903820775617 0.14268692788121906 0.9241087650413906 2.766723718239439
+  position 28.402109848031575 -18.459628117250162 36.55371523862574
 }
 TexturedBackground {
 }
@@ -11,6 +11,20 @@ TexturedBackgroundLight {
 }
 Group {
   children [
+    Group {
+      children [
+        AdvertisingBoard {
+          translation 4.57806e-06 0.01 9.18
+          rotation 0 1 0 -1.5707953071795862
+          displayWidth 7.3
+          displayHeight 10.7
+          frameThickness 0.1
+        }
+        Ceiling {
+          size 10.7 7.3
+        }
+      ]
+    }
     Wall {
       translation 0 3.6625 0
       rotation 0 0 1 -1.5707953071795862
@@ -141,7 +155,12 @@ Robot {
   children [
     DEF FISHEYE Camera {
       translation 0 0 0.14
+      rotation 0 1 0 -1.5707953071795862
       name "fisheye"
+      fieldOfView 0.9
+      width 600
+      height 600
+      spherical TRUE
     }
     DEF BODY Transform {
       rotation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.094395
@@ -673,7 +692,7 @@ Robot {
       }
       endPoint Solid {
         translation -0.1918 0 0
-        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.094395
+        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.0943949999999982
         children [
           DEF casterWheelRim HingeJoint {
             jointParameters HingeJointParameters {
@@ -856,7 +875,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0 0.165 0
-        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.094395
+        rotation 0.5773502691896257 -0.5773502691896258 -0.5773502691896258 2.094395
         children [
           DEF BLACK_CYLINDER_SHAPE Shape {
             appearance PBRAppearance {
@@ -1133,7 +1152,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0 -0.165 0
-        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.094395
+        rotation 0.5773502691903242 -0.5773502691903242 -0.5773502691882288 2.094395000002095
         children [
           DEF RIGHT_BLACK_CYLINDER_SHAPE Shape {
             appearance PBRAppearance {
