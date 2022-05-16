@@ -1,7 +1,10 @@
 """my_controller controller."""
 
 # import robot and actuator/sensor code
-from controller import Robot, Motor, DistanceSensor
+from controller import Robot, Motor, DistanceSensor, Camera
+
+#DEFINITIONS
+cam_sampling_rate=100 #in milliseconds
 
 # create the Robot instance.
 robot = Robot()
@@ -9,6 +12,10 @@ robot = Robot()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
+
+#initialize fisheye camera
+fisheye=robot.getDevice("fisheye")
+fisheye.enable(cam_sampling_rate)
 
 #initialize sonar.
 #angle between two consecutive sensor directions is 20 degrees except for the four side sensors (so0, so7, so8 and so15) for which the angle is 40 degrees.
@@ -33,6 +40,7 @@ while robot.step(timestep) != -1:
     # Enter here functions to read sensor data, like:
     #  val = ds.getValue()
     reading=so[4].getValue()
+    image=fisheye.getImage();
 
     # Process sensor data here.
     print(reading)
