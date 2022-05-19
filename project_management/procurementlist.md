@@ -1,12 +1,12 @@
 
-| Name                      | Quantity (min) | Example                                                | Bought? |
-|:--------------------------|:--------------:|:-------------------------------------------------------|:-------:|
-| Sonar Array               |       2        |                                                        |         |
-| 12V->5V regulatör         |       2        |                                                        |         |
-| MG90 Servo                |       6        |                                                        |         |
-| MG996 Servo               |       6        |                                                        |         |
-| Endoskop Kamera           |       1        |                                                        |         |
-| Raspberry Pi 4 CSI Kamera |       1        | <https://www.direnc.net/raspberry-pi-kamera-modulu-v2> |   YES   |
+| Name                      | Quantity (min) | Example                                                                                     | Bought? |
+|:--------------------------|:--------------:|:--------------------------------------------------------------------------------------------|:-------:|
+| Sonar Array               |       2        |                                                                                             |         |
+| 12V->5V regulatör         |       2        |                                                                                             |         |
+| MG90 Servo                |       3        | <https://www.direnc.net/mg90s-servo-motor>                                                  |         |
+| MG996 Servo               |       6        | <https://www.direnc.net/mg996-metal-servo-motor>                                            |         |
+| Endoskop Kamera           |       1        | <https://www.hepsiburada.com/mytech-endoskop-boroskop-yilan-kamera-5-metre-pm-HB000003948K> |         |
+| Raspberry Pi 4 CSI Kamera |       1        | <https://www.direnc.net/raspberry-pi-kamera-modulu-v2>                                      |   YES   |
 	
 
 
