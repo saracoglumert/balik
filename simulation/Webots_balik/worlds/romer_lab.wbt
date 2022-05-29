@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.3544903820775617 0.14268692788121906 0.9241087650413906 2.766723718239439
-  position 28.402109848031575 -18.459628117250162 36.55371523862574
+  orientation 0.2888824954934413 0.08269111295211659 -0.9537867076218992 2.6012908793834377
+  position 7.7959918146493745 4.388734373796164 6.864488998659151
 }
 TexturedBackground {
 }
@@ -14,14 +14,17 @@ Group {
     Group {
       children [
         AdvertisingBoard {
-          translation 4.57806e-06 0.01 9.18
-          rotation 0 1 0 -1.5707953071795862
-          displayWidth 7.3
-          displayHeight 10.7
+          translation -4.83 -1.47 2.4
+          rotation -0.5773509358560258 -0.5773499358561369 -0.5773499358561369 2.094395307179586
+          frontTexture [
+            "C:/Users/Anil/Documents/SCHOOL/ME462/simulation/Webots_balik/ceilingtop.jpg"
+          ]
+          backTexture [
+            "C:/Users/Anil/Documents/SCHOOL/ME462/simulation/Webots_balik/ceiling.jpg"
+          ]
+          displayWidth 20.48
+          displayHeight 10.24
           frameThickness 0.1
-        }
-        Ceiling {
-          size 10.7 7.3
         }
       ]
     }

@@ -4,7 +4,7 @@ import numpy as np
 #DEFINES
 tag_type="DICT_5X5_100"
 tag_ids=range(0,10)
-tag_size=300
+tag_size=50
 
 
 ARUCO_DICT = {
