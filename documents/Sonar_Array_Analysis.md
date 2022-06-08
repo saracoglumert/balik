@@ -12,35 +12,62 @@ TO-DO
 Parts list:
 -----------
 SensComp sonar sensors (8x)
+
 -aka Polaroid electrostatic transducer
+
 -markings: SensComp 8/2005
+
 -potential datasheet: <https://senscomp.com/wp-content/uploads/2019/12/V2_Series-600-Instr-Grade-Ultrasonic-Sensor-Spec-05Dec14.pdf>
+
 TL851CN (1x)
+
 -sonar ranging control IC
+
 -datasheet: <https://www.ti.com/lit/ds/symlink/tl851.pdf>
+
 TL852CN (1x)
+
 -sonar ranging receiver IC
+
 -datasheet: <https://www.ti.com/lit/ds/symlink/tl852.pdf>
+
 AQW214 (4x)
+
 -solid state relay
+
 -datasheet: <https://datasheet.octopart.com/AQW214-Panasonic-datasheet-10534418.pdf>
+
 74HC138N (1x)
+
 -3 to 8 inverting decoder/demux
+
 -datasheet: <https://eu.mouser.com/datasheet/2/916/74hc_hct138_3-1319710.pdf>
+
 Unidentified blue thing (1x)
+
 -at the bottom side of the board
+
 -3 terminals
+
 -markings on board: NC-1, 94V-0, 4305
+
 Transformer (?) (1x)
+
 -marked T1
+
 Inductor (?) (1x)
+
 -marked L1
+
 
 Driver Board:
 -------------
-Seems similar to the board in the SensComp ranging module datasheet (<https://senscomp.com/wp-content/uploads/2019/12/6500-Ranging-Modules-Spec08Dec14-Rev.2.51_v2.pdf>), which has one potentiometer, one TL851, one TL852. 
+Seems similar to the board in the SensComp ranging module datasheet (<https://senscomp.com/wp-content/uploads/2019/12/6500-Ranging-Modules-Spec08Dec14-Rev.2.51_v2.pdf>), which has one potentiometer, one TL851, one TL852.
+
 Another similar board: <https://www.logosfoundation.org/logoscollectie/catalogus/pdf/Sonar_Ranger/Datasheet%20SN28827.pdf>
+
 Our board seems to be multiplexing between sensors using the AQW214 and 74HC138N ICs.
+
 
 ### Connections:
 
