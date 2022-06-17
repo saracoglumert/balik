@@ -1,16 +1,26 @@
+## Variables ##
+NEWHOSTNAME="robot"
+
 ## Configure OS ##
-
-#Change Hostname
-sudo nano /etc/hostname
-
-#Install SSH Server
-sudo apt install openssh-server
-
-# Install Avahi
-sudo apt install avahi-daemon
-
 # Update and Upgrade
 sudo apt update && sudo apt upgrade
+
+#Change Hostname
+sudo rm /etc/hostname
+touch /etc/hostname
+echo $HOSTNAME > /etc/hostname
+
+#Install SSH Server
+sudo apt install openssh-server -y
+
+# Install Avahi
+sudo apt install avahi-daemon -y
+
+# Install Desktop Environment
+sudo apt install ubuntu-Desktop -y
+
+#Install Remote Desktop Server
+sudo apt install xrdp -y
 
 ## Install ROS2
 # Add PGP Key
