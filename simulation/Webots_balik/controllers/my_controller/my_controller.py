@@ -1,10 +1,40 @@
 """my_controller controller."""
 
-# import robot and actuator/sensor code
-from controller import Robot, Motor, DistanceSensor, Camera
+#IMPORTS
+from controller import Robot, Motor, DistanceSensor, Camera, GPS
+import numpy as np
+from cv2 import aruco
+from math import sqrt
 
 #DEFINITIONS
 cam_sampling_rate=100 #in milliseconds
+target_coords=(1,1)
+
+#FUNCTIONS
+def findaruco(img):
+    return aruco.detectMarkers(img,aruco.DICT_5X5_100)
+
+def bugnext(robot_coords, target_coords, heading, readings):
+    '''
+    calculates the next step according to the bug algo. In progress.
+    robot_coords: tuple (x,y)
+    target_coords: tuple (x,y)
+    heading: tuple (x,y)
+    readings: tuple ((f0,f1,f2,f3,f4,f5,f6,f7),(b0,b1,b2,b3,b4,b5,b6,b7))
+    '''
+    
+    pass
+    
+def getHeading(gps,gpsf):
+    '''
+    Get orientation of robot using the two test gps modules.
+    '''
+    vec_start=gps.getValues()
+    vec_end=gpsf.getValues()
+    vec=[vec_end[0]-vec_start[0], vec_end[1]-vec_start[1]]
+    magnitude=(sqrt(vec[0]**2+vec[1]**2))
+    return [vec[0]/magnitude, vec[1]/magnitude]
+    
 
 # create the Robot instance.
 robot = Robot()
@@ -12,6 +42,12 @@ robot = Robot()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
+#initialize GPS. This will act as a placeholder source of location data
+#until the cam-based localization is implemented.
+gps=robot.getDevice("gps")
+gps.enable(cam_sampling_rate) #same as cam to simulate camera localization speed
+gpsf=robot.getDevice("gpsf")
+gpsf.enable(cam_sampling_rate)
 
 #initialize fisheye camera
 fisheye=robot.getDevice("fisheye")
@@ -36,25 +72,25 @@ rm=robot.getDevice("right wheel")
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
+    #### Read the sensors:
     reading=so[4].getValue()
-    image=fisheye.getImage()
+    image=fisheye.getImage() #B,G,R,A of each pixel sequentially
+    location=gps.getValues()
 
-    # Process sensor data here.
-    print(reading)
+    #### Process sensor data:
+    print(getHeading(gps,gpsf))
+    #print(image)
+    #imgnp=np.asarray(image)
+    #print(findaruco(imgnp))
+    #orientation=getHeading(gps,gpsf)
+    #print(orientation)
+    
+    
+    #### Send commands to actuators:
+    lm.setPosition(100)
+    rm.setPosition(100)
 
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
-    lm.setPosition(10)
-    rm.setPosition(10)
 
 
-def bugnext(robot_coords, target_coords, readings):
-    #calculates the next step according to the bug algo. In progress.
-    #robot_coords: tuple (x,y)
-    #target_coords: tuple (x,y)
-    #readings: tuple ((r0,r1,r2,r3,r4,r5,r6,r7),(l0,l1,l2,l3,l4,l5,l6,l7))
-    pass
+
     
