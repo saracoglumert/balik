@@ -4,19 +4,44 @@
 from controller import Robot, Motor, DistanceSensor, Camera, GPS
 import numpy as np
 from cv2 import aruco
-from math import sqrt
+from math import sqrt, pi
 
 #DEFINITIONS
 cam_sampling_rate=100 #in milliseconds
 target_coords=(1,1)
 
 #FUNCTIONS
-def findaruco(img):
+def findAruco(img):
+    '''
+    test function to detect arucomarkers.
+    '''
     return aruco.detectMarkers(img,aruco.DICT_5X5_100)
 
-def bugnext(robot_coords, target_coords, heading, readings):
+def robFwd(dist,lm,rm):
     '''
-    calculates the next step according to the bug algo. In progress.
+    move the robot forward by dist meters.
+    wheels have d=195mm -> r=97.5mm
+    '''
+    pos=dist/0.975
+    lm.setPosition(pos)
+    rm.setPosition(pos)
+
+def robRot(angle,lm,rm):
+    '''
+    rotate the robot by angle CCW in radians.
+    wheels have d=195mm -> r=97.5mm
+    wheel separation is roughly 381mm -> r_o=190.5
+    TODO: get a more precise value
+    '''
+    pos=(1.905/0.975)*angle
+    lm.setPosition(-pos)
+    rm.setPosition(pos)
+    
+
+def bugNext(robot_coords, target_coords, heading, readings):
+    '''
+    IN PROGRESS
+    calculates the next step according to the bug algo.
     robot_coords: tuple (x,y)
     target_coords: tuple (x,y)
     heading: tuple (x,y)
@@ -70,7 +95,7 @@ lm=robot.getDevice("left wheel")
 rm=robot.getDevice("right wheel")
 
 # Main loop:
-# - perform simulation steps until Webots is stopping the controller
+# - perform simulation step until Webots is stopping the controller
 while robot.step(timestep) != -1:
     #### Read the sensors:
     reading=so[4].getValue()
@@ -78,7 +103,9 @@ while robot.step(timestep) != -1:
     location=gps.getValues()
 
     #### Process sensor data:
-    print(getHeading(gps,gpsf))
+    #heading=getHeading(gps,gpsf)
+    #print(f"HEADING: {heading}")
+    
     #print(image)
     #imgnp=np.asarray(image)
     #print(findaruco(imgnp))
@@ -87,10 +114,6 @@ while robot.step(timestep) != -1:
     
     
     #### Send commands to actuators:
-    lm.setPosition(100)
-    rm.setPosition(100)
-
-
-
-
-    
+    #lm.setPosition(3.14)
+    #rm.setPosition(3.14)
+    robRot(2*pi,lm,rm)
