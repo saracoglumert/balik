@@ -22,7 +22,7 @@ def robFwd(dist,lm,rm):
     move the robot forward by dist meters.
     wheels have d=195mm -> r=97.5mm
     '''
-    pos=dist/0.975
+    pos=dist/0.0975
     lm.setPosition(pos)
     rm.setPosition(pos)
 
@@ -30,10 +30,13 @@ def robRot(angle,lm,rm):
     '''
     rotate the robot by angle CCW in radians.
     wheels have d=195mm -> r=97.5mm
-    wheel separation is roughly 381mm -> r_o=190.5
-    TODO: get a more precise value
+    wheel separation is roughly 328mm -> r_o=165mm
+    calculations yielded wrong results, so coefficient found experimentally.
     '''
-    pos=(1.905/0.975)*angle
+    #pos=(0.164/0.0975)*angle
+    #pos=2*angle
+    #pos=(0.165/0.0975)*angle
+    pos=1.86*angle #why does this work? idk. determined experimentally.
     lm.setPosition(-pos)
     rm.setPosition(pos)
     
@@ -59,7 +62,31 @@ def getHeading(gps,gpsf):
     vec=[vec_end[0]-vec_start[0], vec_end[1]-vec_start[1]]
     magnitude=(sqrt(vec[0]**2+vec[1]**2))
     return [vec[0]/magnitude, vec[1]/magnitude]
-    
+ 
+ #CLASSES
+ class Queue(cmdlist):
+ '''
+ Queue of actions to be followed by robot.
+ Can be paused/resumed.
+ TODO: figure out how to determine if a command is done:
+     -wait a predetermined amount?
+     -feedback? (may require movement function rewrite)
+ '''
+     def __init__(self, cmdlist):
+     '''
+     cmdlist:list of commands to be followed.
+             each command is a list: [cmd,val]
+             where cmd is either 'r' for rotate or 'f' for forward
+             and val is CCW radians of rotation or meters of distance
+     '''
+         self.cmdlist=cmdlist
+     
+     def addcmd(self, cmd):
+     '''
+     add a command to the end of the queue.
+     '''
+         self.cmdlist.append(cmd)
+     #TODO write play/resume functions after figuring out behavior
 
 # create the Robot instance.
 robot = Robot()
@@ -117,3 +144,4 @@ while robot.step(timestep) != -1:
     #lm.setPosition(3.14)
     #rm.setPosition(3.14)
     robRot(2*pi,lm,rm)
+    robFwd(100,lm,rm)
