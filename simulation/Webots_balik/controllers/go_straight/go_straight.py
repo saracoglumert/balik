@@ -1,21 +1,23 @@
-"""my_controller controller."""
+"""go_straight controller."""
 
 #IMPORTS
 from controller import Robot, Motor, DistanceSensor, Camera, GPS
 import numpy as np
-from cv2 import aruco
-from math import sqrt, pi
+from math import sqrt, pi, acos, nan
 
 #DEFINITIONS
 cam_sampling_rate=100 #in milliseconds
-target_coords=(1,1)
+target_coords=(0.5,0.1)
 
 #FUNCTIONS
-def findAruco(img):
+def dotProd(vec1,vec2):
     '''
-    test function to detect arucomarkers.
+    dot product. give vectors of same length.
     '''
-    return aruco.detectMarkers(img,aruco.DICT_5X5_100)
+    acc=0
+    for dim in range(0,len(vec1)):
+        acc+=vec1[dim]*vec2[dim]
+    return acc
 
 def robFwd(dist,lm,rm):
     '''
@@ -41,17 +43,23 @@ def robRot(angle,lm,rm):
     rm.setPosition(rm.getTargetPosition()+pos)
     
 
-def bugNext(robot_coords, target_coords, heading, readings):
+def goStraight(robot_coords, target_coords, heading):
     '''
     IN PROGRESS
-    calculates the next step according to the bug algo.
+    calculates angle and magnitude to go to a point
     robot_coords: tuple (x,y)
     target_coords: tuple (x,y)
     heading: tuple (x,y)
-    readings: tuple ((f0,f1,f2,f3,f4,f5,f6,f7),(b0,b1,b2,b3,b4,b5,b6,b7))
     '''
+    traj_vec=[target_coords[0]-robot_coords[0], target_coords[1]-robot_coords[1]] #draw a straight line from start to end
+    magnitude=(sqrt(traj_vec[0]**2 + traj_vec[1]**2))
+    traj_dir=[traj_vec[0]/magnitude, traj_vec[1]/magnitude] #normalize the vector to get direction
     
-    pass
+    #dot product to find angle between our heading and trajectory
+    ang=acos(dotProd(heading, traj_dir))
+    
+    #return instructions
+    return [ang,magnitude]
     
 def getHeading(gps,gpsf):
     '''
@@ -59,9 +67,11 @@ def getHeading(gps,gpsf):
     '''
     vec_start=gps.getValues()
     vec_end=gpsf.getValues()
+    
     vec=[vec_end[0]-vec_start[0], vec_end[1]-vec_start[1]]
     magnitude=(sqrt(vec[0]**2+vec[1]**2))
-    return [vec[0]/magnitude, vec[1]/magnitude]
+
+    return [vec[0]/magnitude, vec[1]/magnitude] #return it normalized
 
 # create the Robot instance.
 robot = Robot()
@@ -96,6 +106,9 @@ for soName in soNames:
 lm=robot.getDevice("left wheel")
 rm=robot.getDevice("right wheel")
 
+#flag to determine whether we gave motion instructions or not
+motion_planned=False
+
 # Main loop:
 # - perform simulation step until Webots is stopping the controller
 while robot.step(timestep) != -1:
@@ -105,18 +118,15 @@ while robot.step(timestep) != -1:
     location=gps.getValues()
 
     #### Process sensor data:
-    #heading=getHeading(gps,gpsf)
-    #print(f"HEADING: {heading}")
-    
-    #print(image)
-    #imgnp=np.asarray(image)
-    #print(findAruco(imgnp))
-    #orientation=getHeading(gps,gpsf)
-    #print(orientation)
-    
+    heading=getHeading(gps,gpsf)
+    print(f"LOCATION: {location[0:2]} HEADING: {heading}")
+    if not motion_planned and sum(heading)>0:
+        plan=goStraight(location[0:2], target_coords, heading) #get how much to rotate and how much to go
+        #execute those
+        #potential pitfall: is angle output as CCW?
+        robRot(plan[0],lm,rm)
+        robFwd(plan[1],lm,rm)
+        motion_planned=True
     
     #### Send commands to actuators:
-    #lm.setPosition(3.14)
-    #rm.setPosition(3.14)
-    #robRot(2*pi,lm,rm)
-    robFwd(100,lm,rm)
+    

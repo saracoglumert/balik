@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.2888824954934413 0.08269111295211659 -0.9537867076218992 2.6012908793834377
-  position 7.7959918146493745 4.388734373796164 6.864488998659151
+  orientation 0.23792378066359082 0.03746651414726909 -0.9705609382786824 2.8382542307814402
+  position 12.323978862107609 3.8237211872464663 6.957981236800689
 }
 TexturedBackground {
 }
@@ -156,11 +156,18 @@ Group {
 Robot {
   translation 0 0 0.0975
   children [
+    DEF GPSF GPS {
+      translation 0.13 0 0.14
+      name "gpsf"
+    }
+    DEF GPS GPS {
+      translation 0 0 0.14
+    }
     DEF FISHEYE Camera {
       translation 0 0 0.14
       rotation 0 1 0 -1.5707953071795862
       name "fisheye"
-      fieldOfView 0.9
+      fieldOfView 2
       width 600
       height 600
       spherical TRUE
@@ -3178,5 +3185,5 @@ Robot {
       -0.06 0 0.06
     ]
   }
-  controller "my_controller"
+  controller "go_straight"
 }
