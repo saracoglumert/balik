@@ -6,8 +6,8 @@ import numpy as np
 from math import sqrt, pi, acos, nan, atan2
 
 #DEFINITIONS
-cam_sampling_rate=100 #in milliseconds
-target_coords=(-1,0)
+cam_sampling_rate=1 #in milliseconds
+target_coords=(0.8,-0.6)
 
 #FUNCTIONS
 def dotProd(vec1,vec2):
@@ -27,45 +27,43 @@ def findsin(vec1,vec2):
     m2=np.linalg.norm(v2)
     return cprod/(m1*m2)
 
-def robFwd(dist,lm,rm):
+def robFwdP(diff,lm,rm):
     '''
-    move the robot forward by dist meters.
-    wheels have d=195mm -> r=97.5mm
+    move robot forward by diff. returns true if fully moved.
     '''
-    pos=dist/0.0975
-    lm.setPosition(lm.getTargetPosition()+pos)
-    rm.setPosition(rm.getTargetPosition()+pos)
+    kp=2
+    thres=0.1
+    e=diff
+    if abs(e)>thres:
+        lm.setVelocity(kp*e+1)
+        rm.setVelocity(kp*e+1)
+        return False
+    else:
+        print("moved")
+        lm.setPosition(float('inf'))
+        rm.setPosition(float('inf'))
+        lm.setVelocity(0)
+        rm.setVelocity(0)
+        return True
 
 def robRotP(diff,lm,rm):
-	'''
-	rotate robot CCW by ang rad. returns true if fully rotated.
-	'''
-	kp=1.85
-	thres=0.1
-	e=diff
-	if abs(e)>thres:
-		lm.setVelocity(1.85*e)
-		rm.setVelocity(-1.85*e)
-		return False
-	else:
-		lm.setVelocity(0)
-		rm.setVelocity(0)
-		return True
-
-def robRot(angle,lm,rm):
     '''
-    rotate the robot by angle CCW in radians.
-    wheels have d=195mm -> r=97.5mm
-    wheel separation is roughly 328mm -> r_o=165mm
-    calculations yielded wrong results, so coefficient found experimentally.
+    rotate robot CCW by ang rad. returns true if fully rotated.
     '''
-    #pos=(0.164/0.0975)*angle
-    #pos=2*angle
-    #pos=(0.165/0.0975)*angle
-    #pos=1.86*angle #why does this work? idk. determined experimentally.
-    pos=2.2*angle
-    lm.setPosition(lm.getTargetPosition()-pos)
-    rm.setPosition(rm.getTargetPosition()+pos)
+    kp=7
+    thres=0.01
+    e=diff
+    if abs(e)>thres:
+        lm.setVelocity(-kp*e)
+        rm.setVelocity(kp*e)
+        return False
+    else:
+        print("rotated")
+        lm.setPosition(float('inf'))
+        rm.setPosition(float('inf'))
+        lm.setVelocity(0)
+        rm.setVelocity(0)
+        return True
     
 
 def goStraight(robot_coords, target_coords, heading):
@@ -155,26 +153,36 @@ while robot.step(timestep) != -1:
     heading=getHeading(gps,gpsf)
     
     #### Send commands to actuators:
-    if not motion_planned and sum(heading)>0:
-        plan=goStraight(location[0:2], target_coords, heading) #get how much to rotate and how much to go
-        #print(plan)
-        robRot(plan[0],lm,rm)
-        motion_planned=True
-    elif motion_planned and not rotated:
-        #get current angle diff
-        current=goStraight(location[0:2], target_coords, heading)
-        
-        #print(f"LOCATION: {location[0:2]} HEADING: {heading}")
-        print(f"ANG DELTA: {current[0]} \t\t\t  COORD DELTA: {current[1]}")
-        
-        #call rotation controller
-        res=robRotP(current[0],lm,rm)
-        if res:
-            rotated=True
-            #if within angle thres, start going forward
-            robFwd(plan[1],lm,rm)
-    else:
-        if not moved and abs(current[1])<0.1:
-            #if within coord thres, print that the thing is complete!
-            print("COMPLETED")
-            moved=True
+    if sum(heading)!=0:
+        if not motion_planned:
+            plan=goStraight(location[0:2], target_coords, heading) #get how much to rotate and how much to go
+            #print(plan)
+            lm.setPosition(float('inf'))
+            rm.setPosition(float('inf'))
+            motion_planned=True
+         
+        elif not rotated:
+            #get current angle diff
+            current=goStraight(location[0:2], target_coords, heading)
+            
+            #print(f"LOCATION: {location[0:2]} HEADING: {heading}")
+            print(f"rANG DELTA: {current[0]} \t\t\t  COORD DELTA: {current[1]}")
+            
+            #call rotation controller
+            res=robRotP(current[0],lm,rm)
+            if res:
+                rotated=True
+                #if within angle thres, start going forward
+        elif not moved:
+            #get current coord diff
+            current=goStraight(location[0:2], target_coords, heading)
+            
+            #print(f"LOCATION: {location[0:2]} HEADING: {heading}")
+            print(f"mANG DELTA: {current[0]} \t\t\t  COORD DELTA: {current[1]}")
+            
+            #call forward motion controller
+            res=robFwdP(current[1],lm,rm)
+            if res:
+                moved=True
+                #if within coord thres, print that the thing is complete!
+                print("COMPLETED")
