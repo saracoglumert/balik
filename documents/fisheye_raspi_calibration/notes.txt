@@ -1,0 +1,41 @@
+to copy:
+pscp -r -ssh "ubuntu@robot:denemeler/kamera/chessoutput" .
+
+checkerboard square size: 23mm
+==OPENCV full size
+did not see any false positives:
+ Camera matrix:
+[[3.08047914e+03 0.00000000e+00 1.17283304e+03]
+ [0.00000000e+00 2.98393808e+03 6.63021587e+02]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+
+ Distortion coefficient:
+[[-1.72286595  5.52065632 -0.0370834  -0.03508015 -7.17131789]]
+
+==MATLAB
+didn't work with full size images, detected the vents in some images
+
+==OPENCV HALF SIZE
+ Camera matrix:
+[[1.54694011e+03 0.00000000e+00 5.86248874e+02]
+ [0.00000000e+00 1.49820321e+03 3.31329646e+02]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+
+ Distortion coefficient:
+[[-1.73709447  5.6209642  -0.03739107 -0.03543505 -7.36469899]]
+
+seems to work better when undistorting via opencv.
+real test results: consistent readings, approx. z=740 for 30cm distance.
+
+==MATLAB HALF SIZE
+intrinsicMatrix =
+
+  656.7987         0  586.9032
+         0  656.5124  276.9949
+         0         0    1.0000
+distortionCoefficients =
+
+   -0.2982    0.0655         0         0         0
+
+works great when undistorting via matlab, not so much with opencv.
+real test results: consistent readings, approx z=350 for 30cm distance.
