@@ -1,6 +1,7 @@
 # TO-DO
 
  * localization
+	* revise ceiling image generator
 	* try out algorithm in simulation
 	* determine how many aruco markers are needed
 	* hang aruco markers
@@ -20,7 +21,6 @@
 		* determine needed ultrasonic sensor count
 		* wire up sensors
 		* interface with raspberry
-* power raspberry pi from robot battery w/ a regulator
 * demos
 	* list demo ideas
 	* implement in simulation
