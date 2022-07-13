@@ -13,7 +13,6 @@
 	* in simulation
 	* add ros bindings and try on raspberry
 * robot arm
-	* assemble
 	* electrical assembly & controller
 	* interface with raspberry
 * distance sensor
