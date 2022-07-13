@@ -5,7 +5,7 @@ from controller import Robot, Motor, DistanceSensor, Camera, GPS, PositionSensor
 import numpy as np
 import cv2
 from math import floor
-import localization_lib
+import locl
 
 #DEFINITIONS
 cam_sampling_rate=1 #in milliseconds
@@ -58,14 +58,7 @@ rm=robot.getDevice("right wheel")
 # - perform simulation step until Webots is stopping the controller
 while robot.step(timestep) != -1:
     #### Read the sensors:
-    reading=so[4].getValue()
-    img=fisheye.getImageArray() #B,G,R,A(?) of each pixel sequentially
-    img=np.asarray(img, dtype=np.uint8)
-    img=cv2.cvtColor(img,cv2.COLOR_BGRA2RGB)
-    img=cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-    img=cv2.flip(img,1)
-    img=cv2.resize(img,(800,800))
+    pic=locl.cam_snap(fisheye)
     #### Process sensor data:
-    output=pose_estimation(img, aruco_dict_type, K, D)
-    
+    print(locl.cam_estimate_pose(pic))
     #### Send commands to actuators:
