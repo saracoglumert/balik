@@ -7,3 +7,5 @@
 - my_controller: initial tries, can be ignored.
 
 - poseest_ctrl: Runs pose estimation algorithm to estimate marker position on the poseest world. Current parameter derivation and additional comments can be found inside.
+
+- localization_ctrl: Find out where the robot is based on marker readings. IN PROGRESS.

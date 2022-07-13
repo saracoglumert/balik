@@ -7,7 +7,6 @@ import cv2
 
 #DEFINITIONS
 cam_sampling_rate=1 #in milliseconds
-target_coords=(0.8,-0.6)
 
 #FUNCTIONS
 def pose_estimation(
@@ -105,6 +104,7 @@ while robot.step(timestep) != -1:
     #### Read the sensors:
     reading=so[4].getValue()
     img=fisheye.getImageArray() #B,G,R,A(?) of each pixel sequentially
+	#format image to use with opencv
     img=np.asarray(img, dtype=np.uint8)
     img=cv2.cvtColor(img,cv2.COLOR_BGRA2RGB)
     img=cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
