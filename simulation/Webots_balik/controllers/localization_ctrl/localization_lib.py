@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jul 12 15:26:47 2022
+Created on Tue Jul 12 15:26:47 2022
 
 @author: Anil
 """
 import numpy as np
 import cv2
-from math import floor
+from math import floor, sin, cos, asin
 
 ### CONSTANTS
 #fisheye camera params (matlab)
@@ -178,34 +178,147 @@ def cam_localization(camera):
 	robot_pose: 4x4 transformation matrix
 		the robot's pose wrt the lab's origin.
 		if no new markers were detected,
-
+		returns None.
 	"""
 	#take image
 	img=cam_snap(camera)
 	#run pose estimation on it
 	markerlocs=cam_estimate_pose(img)
-	#refer to existing table of marker positions to gauge your own position
-	return rob_estimate_pose(markerlocs)
+	if markerlocs != None:
+		#if any marker was detected
+		#refer to existing table of marker positions to gauge your own position
+		return rob_estimate_pose(markerlocs)
+	else:
+		return None
 
-#dead reckoning localization
-def dr_localization():
-	#for the actual robot, turns out we can send the SETO command to zero the robot's
-	#internal coords back to zero, so maybe we can try that to get the delta easily?
-	pass
+def dr_reset():
+	"""
+	set the robot's internal, dead-reckoning based location estimate to zero.
+	for the irl implementation, send a SETO command (command #7).
+
+	Returns
+	-------
+	None.
+
+	"""
+	global internal_dr
+	internal_dr=np.identity(4)
+
+def dr_differentiate(lme,rme):
+	"""
+	for robot internal dead-reckoning simulation
+	find theta\dot of the two wheels by differentiating
+	encoder readouts.
+
+	Parameters
+	----------
+	lme : webots positionsensor
+		left wheel.
+	rme : webots positionsensor
+		right wheel.
+
+	Returns
+	-------
+	[lmedot, rmedot, sampling]
+		lmedot,rmedot: change in wheel angle. in radians.
+		sampling: time delta
+
+	"""
+	global internal_lme_prev
+	global internal_rme_prev
+	
+	lmeval=lme.getValue()
+	rmeval=rme.getValue()
+	sampling=lme.getSamplingPeriod() #sampling rate, time delta
+	#differentiate
+	lmedot=(lmeval-internal_lme_prev)/sampling
+	rmedot=(rmeval-internal_rme_prev)/sampling
+	#set prev values
+	internal_lme_prev=lmeval
+	internal_rme_prev=rmeval
+	return [lmedot, rmedot, sampling]
+	
+#dead reckoning localization. Normally the robot should compute this part.
+#I will use the unicycle model to model the robot.
+#xdot=1/2*(vr+vl)*cos(theta)
+#ydot=1/2*(vr+vl)*sin(theta)
+#thetadot=(vr-vl)/(328mm)
+def dr_localization(lmedot, rmedot, sampling):
+	global internal_dr
+	WHEEL_RADIUS=97.5 #mm
+	WHEEL_SEPARATION=328 #mm
+	
+	theta=asin(internal_dr[1][0]) #find theta from the rot. mat.
+	vr=rmedot*WHEEL_RADIUS
+	vl=lmedot*WHEEL_RADIUS
+	
+	xdot=1/2*(vr+vl)*cos(theta)
+	ydot=1/2*(vr+vl)*sin(theta)
+	thetadot=(vr-vl)/(WHEEL_SEPARATION)
+	
+	#multiply by time delta to find the incremental change
+	xdelta=xdot*sampling
+	ydelta=ydot*sampling
+	thetadelta=thetadot*sampling
+	
+	#construct transformation matrix
+	#actually a 2d tf matrix but we represent it as 3d
+	delta_tfmat=np.array([[cos(thetadelta), -sin(thetadelta), 0, xdelta],
+						  [sin(thetadelta),  cos(thetadelta), 0, ydelta],
+						  [              0,                0, 1,      0],
+						  [              0,                0, 0,      0]])
+	#add the newly calculated delta to the internal transform.
+	internal_dr=internal_dr*delta_tfmat
+
+
+def dr_getestimate():
+	"""
+	Simulates getting the dead-reckoning based
+	position estimate from the robot internals.
+
+	Returns
+	-------
+	internal_dr : 4x4 transformation matrix
+
+	"""
+	global internal_dr
+	return internal_dr
 
 # count how many main loops have passed.
 # to determine when to snap a new fisheye pic.
 tick_counter=0
+#variable to act as the internal dead-reckoning based position estimate
+#of the robot.
+internal_dr=None
+#previous value of encoders for differentiation to simulate robot's internal
+#dead reckoning systems
+internal_lme_prev=None
+internal_rme_prev=None
 
 # localization function.
-# when it d
-def localization(fisheye_cam, marker_pos):
+# check camera occasionally. if any markers are detected,
+# use location from the markers as ground truth.
+# add the dead reckoning delta to the marker-derived location
+# until a new marker is detected.
+def localization(fisheye_cam, lme, rme, marker_pos):
+	##simulate robot's internal dead-reckoning system
+	#normally done by the robot.
+	[lmedot, rmedot, sampling]=dr_differentiate(lme, rme)
+	dr_localization(lmedot, rmedot, sampling)
+	##
+	
 	#if cam sampling rate has passed,
 	if tick_counter>=100:	
 		#take a picture and analyze it.
-		marker_pos=cam_localization(fisheye_cam)
+		marker_pos_temp=cam_localization(fisheye_cam)
+		if marker_pos_temp != None:
+			marker_pos=marker_pos_temp
+			#reset the dead reckoning estimate to get the delta from
+			#this new marker position
+			dr_reset()
 	else:
 		#else, get dead reckoning data.
-		dr_delta=dr_localization()
+		dr_delta=dr_getestimate()
 		#add that onto the last marker position estimate to get current pos.
-	return current_pos
+		current_pos=marker_pos+dr_delta
+	return [current_pos, marker_pos]
