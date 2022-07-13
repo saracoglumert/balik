@@ -40,7 +40,7 @@ def cam_snap(camera,resolution=(1280,720)):
 	return img
 
 
-def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coefficients=K, distortion_coefficients=D, markersize=0.5):
+def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coefficients=K, distortion_coefficients=D, markersize=0.5, show=False):
 	"""
 	estimate position of a marker wrt the cam
 
@@ -56,6 +56,8 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 		the D matrix.
 	markersize : meters, optional
 		size of the markers irl. The default is 0.1 for irl, 0.5 for sim.
+	show : Boolean
+		whether to show a frame showing the identified markers
 
 	Returns
 	-------
@@ -84,6 +86,7 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 				corners[i], markersize, matrix_coefficients, distortion_coefficients
 			)
 			
+			tvecn=tvec[:]
 			#empirical testing shows that the z axis estimation is double what it should be for some reason.
 			#hence divide by two here as a weird fix
 			tvec[0][0][2]/=2
@@ -91,21 +94,26 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 			#add rvec and tvec under a key
 			results[str(ids[i])]=[rvec,tvec]
 			
-			print(f"tvec: {tvec}, rvec: {rvec} for id {ids[i]}")
-			
-			# Draw a square around the markers
-			cv2.aruco.drawDetectedMarkers(frame, corners)
-
-			# Draw Axis
-			cv2.aruco.drawAxis(
-				frame,
-				matrix_coefficients,
-				distortion_coefficients,
-				rvec,
-				tvec,
-				0.01,
-			)
-                	#draw frame here if you like
+			if show:
+				print(f"tvec: {tvec}, rvec: {rvec} for id {ids[i]}")
+				
+				# Draw a square around the markers
+				cv2.aruco.drawDetectedMarkers(frame, corners)
+	
+				# Draw Axis
+				cv2.aruco.drawAxis(
+					frame,
+					matrix_coefficients,
+					distortion_coefficients,
+					rvec,
+					tvecn,
+					0.1,
+				)
+		if show:
+			#draw frame here
+			cv2.imshow("Detected Markers", frame)
+			cv2.waitKey(0)
+			cv2.destroyAllWindows()
 		return results
 	else:
 		return None

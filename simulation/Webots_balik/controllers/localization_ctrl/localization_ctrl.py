@@ -60,5 +60,5 @@ while robot.step(timestep) != -1:
     #### Read the sensors:
     pic=locl.cam_snap(fisheye)
     #### Process sensor data:
-    print(locl.cam_estimate_pose(pic))
+    print(locl.cam_estimate_pose(pic, show=True))
     #### Send commands to actuators:
