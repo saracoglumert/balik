@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 4.188785307179587
-  position -0.05046626805379399 0.003142088781351874 7.382947084049888
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -0.05047794789821046 0.0031304089039085434 4.41900232472632
   follow "Pioneer 3-DX"
 }
 TexturedBackground {
@@ -21,7 +21,7 @@ Group {
             "https://raw.githubusercontent.com/saracoglumert/balik/main/simulation/Webots_balik/ceilingtop.jpg"
           ]
           backTexture [
-            "https://raw.githubusercontent.com/saracoglumert/balik/main/simulation/Webots_balik/ceiling.jpg"
+            "https://raw.githubusercontent.com/saracoglumert/balik/main/simulation/Webots_balik/ceiling.png"
           ]
           displayWidth 20.48
           displayHeight 10.24
@@ -169,9 +169,10 @@ Robot {
       rotation 0 1 0 -1.5707953071795862
       name "fisheye"
       fieldOfView 2
-      width 600
-      height 600
+      width 2560
+      height 1440
       spherical TRUE
+      noise 0.01
     }
     DEF BODY Transform {
       rotation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.094395
@@ -703,7 +704,7 @@ Robot {
       }
       endPoint Solid {
         translation -0.1918 0 0
-        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.0943949999999982
+        rotation 0.5773502691881983 -0.5773502691903395 -0.5773502691903395 2.0943950000021396
         children [
           DEF casterWheelRim HingeJoint {
             jointParameters HingeJointParameters {
@@ -886,7 +887,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0 0.165 0
-        rotation 0.5773502691896257 -0.5773502691896258 -0.5773502691896258 2.094395
+        rotation 0.5773502691896256 -0.5773502691896258 -0.5773502691896258 2.094395
         children [
           DEF BLACK_CYLINDER_SHAPE Shape {
             appearance PBRAppearance {
@@ -1163,7 +1164,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0 -0.165 0
-        rotation 0.5773502691903242 -0.5773502691903242 -0.5773502691882288 2.094395000002095
+        rotation 0.5773502691903242 -0.5773502691903242 -0.577350269188229 2.0943950000020948
         children [
           DEF RIGHT_BLACK_CYLINDER_SHAPE Shape {
             appearance PBRAppearance {
@@ -3186,5 +3187,5 @@ Robot {
       -0.06 0 0.06
     ]
   }
-  controller "go_straight"
+  controller "localization_ctrl"
 }
