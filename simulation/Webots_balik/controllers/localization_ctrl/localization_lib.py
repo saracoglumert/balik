@@ -198,10 +198,7 @@ def dr_localization():
 tick_counter=0
 
 # localization function.
-# check camera occasionally. if any markers are detected,
-# use location from the markers as ground truth.
-# add the dead reckoning delta to the marker-derived location
-# until a new marker is detected.
+# when it d
 def localization(fisheye_cam, marker_pos):
 	#if cam sampling rate has passed,
 	if tick_counter>=100:	
