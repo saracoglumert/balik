@@ -2,7 +2,6 @@
 
  * localization
  	* test marker detector error
-	* revise ceiling image generator
 	* try out algorithm in simulation
 	* determine how many aruco markers are needed
 	* hang aruco markers
