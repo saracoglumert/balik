@@ -151,6 +151,7 @@ def rob_estimate_pose(markerlocs):
 		elif mag<closest[2]:
 			#found something closer, declare that the closest
 			closest=[marker_id, markerlocs[marker_id], mag]
+	print(f"{marker_id} is the closest")
 	rvec=closest[1][0]
 	tvec=closest[1][1]
 	# use tvec and rvec to obtain a transformation matrix
@@ -158,21 +159,34 @@ def rob_estimate_pose(markerlocs):
 	tvec=tvec[0].transpose()
 	RTM=np.hstack((rotmat,tvec))
 	RTM=np.vstack((RTM,np.array([0,0,0,1])))
+	print("RTM:")
+	print(RTM)
 	#RTM: robot -> marker transformation matrix
 	#TODO: change params below after hanging markers
 	NUM_COLS=3
 	ALPHA=1.4 #separation in x direction. unit=meters? 
 	BETA=1.4 #separation in y direction. unit=meters?
-    idint=int(marker_id[1:-1])
+	#FOR REALITY
+	#X_OFFSET=ALPHA/4
+	#Y_OFFSET=BETA/2
+	#idint=int(marker_id[1:-1])+1
+	#FOR SIMULATION
+	X_OFFSET=0
+	Y_OFFSET=0
+	idint=int(marker_id[1:-1])
 	#assume not rotated according to room coordinate system
-	mx= ALPHA * (idint % NUM_COLS)
-	my= BETA * floor(idint/NUM_COLS)
+	mx= X_OFFSET + ALPHA * (((idint-1) % NUM_COLS)+1)
+	my= Y_OFFSET + BETA * floor(idint/NUM_COLS)
 	#mz=0 since we assume origin is level with ceiling. can be changed.
 	mz=0
 	OTM=np.array([[1, 0, 0, mx], [0, 1, 0, my], [0, 0, 1, mz], [0, 0, 0, 1]])
+	print("OTM: ")
+	print(OTM)
 	#OTM: origin -> marker transformation matrix
 	#now we find OTR using OTM*(RTM)^-1
 	OTR=OTM*(np.linalg.inv(RTM))
+	print("OTR: ")
+	print(OTR)
 	#OTR: origin -> robot transformation matrix
 	return OTR
 
