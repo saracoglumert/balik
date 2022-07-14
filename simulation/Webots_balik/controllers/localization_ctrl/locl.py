@@ -11,7 +11,10 @@ from math import floor, sin, cos, asin
 
 ### CONSTANTS
 #fisheye camera params (matlab)
-K=np.array([[888.7906, 0, 402.7489], [0, 884.7119, 436.1675], [0, 0, 1]])
+#K=np.array([[888.7906, 0, 402.7489], [0, 884.7119, 436.1675], [0, 0, 1]])
+#D=np.array([[-0.9876], [0.5647], [0.0], [0.0], [0.0]])
+#fisheye camera params (matlab) (modified)
+K=np.array([[888.7906, 0, 300], [0, 884.7119, 300], [0, 0, 1]])
 D=np.array([[-0.9876], [0.5647], [0.0], [0.0], [0.0]])
 
 ### FUNCTIONS
@@ -158,11 +161,12 @@ def rob_estimate_pose(markerlocs):
 	#RTM: robot -> marker transformation matrix
 	#TODO: change params below after hanging markers
 	NUM_COLS=3
-	ALPHA=3 #separation in x direction. unit=meters? 
-	BETA=3 #separation in y direction. unit=meters?
+	ALPHA=1.4 #separation in x direction. unit=meters? 
+	BETA=1.4 #separation in y direction. unit=meters?
+    idint=int(marker_id[1:-1])
 	#assume not rotated according to room coordinate system
-	mx= ALPHA * (marker_id % NUM_COLS)
-	my= BETA * floor(marker_id/3)
+	mx= ALPHA * (idint % NUM_COLS)
+	my= BETA * floor(idint/NUM_COLS)
 	#mz=0 since we assume origin is level with ceiling. can be changed.
 	mz=0
 	OTM=np.array([[1, 0, 0, mx], [0, 1, 0, my], [0, 0, 1, mz], [0, 0, 0, 1]])
