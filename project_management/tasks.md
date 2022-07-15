@@ -1,25 +1,19 @@
 # TO-DO
 
  * localization
- 	* test marker detector error
-	* try out algorithm in simulation
-	* determine how many aruco markers are needed
-	* hang aruco markers
-	* try out in real life
+	* try out around the lab
 * navigation
-	* implement obstacle avoidance
+	* implement obstacle avoidance (tangent bug?) in simulation
 * merge navigation and localization
 	* in simulation
 	* add ros bindings and try on raspberry
 * robot arm
-	* electrical assembly & controller
+	* fix
 	* interface with raspberry
 * distance sensor
-	* check functionality with oscilloscope
-	* if not working,
-		* determine needed ultrasonic sensor count
-		* wire up sensors
-		* interface with raspberry
+	* wire up third external ultrasonic sensor
+	* ros - stop when obstacle detected
+* implement teleoperation
 * demos
 	* list demo ideas
 	* implement in simulation
