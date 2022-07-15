@@ -48,7 +48,7 @@ def cam_snap(camera,resolution=(1280,720), matrix_coefficients=K, distortion_coe
 	return img
 
 
-def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coefficients=K, distortion_coefficients=D, markersize=0.5, show=False):
+def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coefficients=K, distortion_coefficients=D, markersize=0.18, show=False):
 	"""
 	estimate position of a marker wrt the cam
 
@@ -97,7 +97,7 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 			tvecn=tvec[:]
 			#empirical testing shows that the z axis estimation is double what it should be for some reason.
 			#hence divide by two here as a weird fix
-			tvec=tvec/2
+			#tvec=tvec/2
 			
 			#add rvec and tvec under a key
 			results[str(ids[i])]=[rvec,tvec]
@@ -189,10 +189,11 @@ def rob_estimate_pose(markerlocs):
 	#FOR SIMULATION
 	X_OFFSET=0
 	Y_OFFSET=0
-	idint=int(marker_id[1:-1])
+	idint=int(closest[0][1:-1])
+	print(f"idint: {idint}")
 	#assume not rotated according to room coordinate system
-	mx= X_OFFSET + ALPHA * (((idint-1) % NUM_COLS)+1)
-	my= Y_OFFSET + BETA * (floor(idint/NUM_COLS)+1)
+	mx= X_OFFSET + ALPHA * (((idint) % NUM_COLS)+1)
+	my= Y_OFFSET + BETA * (floor((idint)/NUM_COLS)+1)
 	#mz=0 since we assume origin is level with ceiling. can be changed.
 	mz=0
 	OTM=np.array([[1, 0, 0, mx], [0, 1, 0, my], [0, 0, 1, mz], [0, 0, 0, 1]])
