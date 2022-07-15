@@ -98,7 +98,7 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 			#empirical testing shows that the z axis estimation is double what it should be for some reason.
 			#hence divide by two here as a weird fix
 			#tvec[0][0][2]/=2
-			#tvec=tvec/6
+			tvec=tvec/2
 			
 			#add rvec and tvec under a key
 			results[str(ids[i])]=[rvec,tvec]
@@ -116,7 +116,7 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 					distortion_coefficients,
 					rvec,
 					tvecn,
-					markersize/5,
+					markersize/3,
 				)
 		if show:
 			#draw frame here
@@ -166,6 +166,9 @@ def rob_estimate_pose(markerlocs):
 	tvec=tvec[0].transpose()
 	RTM=np.hstack((rotmat,tvec))
 	RTM=np.vstack((RTM,np.array([0,0,0,1])))
+	#trying something
+	mirror=np.array([[-1,0,0,0],[0,-1,0,0],[0,0,-1,0],[0,0,0,1]])
+	RTM=np.matmul(RTM,mirror)
 	print("RTM:")
 	print(RTM)
 	#RTM: robot -> marker transformation matrix
