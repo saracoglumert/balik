@@ -155,7 +155,7 @@ def rob_estimate_pose(markerlocs):
 			closest=[marker_id, markerlocs[marker_id], mag]
 		elif mag<closest[2]:
 			#found something closer, declare that the closest
-			print(f"{mag} was less than {closest[2]} and this is {marker_id}")
+			#print(f"{mag} was less than {closest[2]} and this is {marker_id}")
 			closest=[marker_id, markerlocs[marker_id], mag]
 	print(f"{closest[0]} is the closest")
 	rvec=closest[1][0]
@@ -166,7 +166,7 @@ def rob_estimate_pose(markerlocs):
 	RTM=np.hstack((rotmat,tvec))
 	RTM=np.vstack((RTM,np.array([0,0,0,1])))
 	#reflect the transformation matrix in all axes
-	mirror=np.array([[-1,0,0,0],[0,-1,0,0],[0,0,-1,0],[0,0,0,1]])
+	mirror=np.array([[1,0,0,0],[0,-1,0,0],[0,0,1,0],[0,0,0,1]])
 	RTM=np.matmul(RTM,mirror)
 	print("RTM:")
 	print(RTM)
@@ -190,7 +190,7 @@ def rob_estimate_pose(markerlocs):
 	X_OFFSET=0
 	Y_OFFSET=0
 	idint=int(closest[0][1:-1])
-	print(f"idint: {idint}")
+	#print(f"idint: {idint}")
 	#assume not rotated according to room coordinate system
 	mx= X_OFFSET + ALPHA * (((idint) % NUM_COLS)+1)
 	my= Y_OFFSET + BETA * (floor((idint)/NUM_COLS)+1)
@@ -207,6 +207,53 @@ def rob_estimate_pose(markerlocs):
 	#OTR: origin -> robot transformation matrix
 	return OTR
 
+pose_memory=[]
+
+def rob_pose_qa(newpose):
+	"""
+	QA check for poses
+	Check if a given transformation of the robot makes sense.	
+
+	Parameters
+	----------
+	newpose : 4x4 transformation matrix
+		robot pose estimate.
+	Returns
+	-------
+	Valid? : bool
+		Is the pose valid?.
+
+	"""
+	if (newpose[0][3]<0) or (newpose[0][3]>30):
+		return False
+	if (newpose[1][3]<0) or (newpose[1][3]>40):
+		return False
+	return True
+
+
+def rob_pose_filter(newpose):
+	"""
+	filter out the robot poses with a weighted average.
+
+	Parameters
+	----------
+	newpose : 4x4 transformation matrix
+		newly calculated transformation matrix for the robot pose
+
+	Returns
+	-------
+	poseavg : 4x4 transformation matrix
+		weighted average of the 10 previous transformation matrices
+
+	"""
+	PRIORITY=3
+	if rob_pose_qa(newpose):
+		if len(pose_memory)>=10:
+			pose_memory.pop() #take out the oldest pose
+		pose_memory.insert(0,newpose) #add in the newest pose
+	#take the average of all poses. Give the last pose more priority: PRORITY+1 times.
+	poseavg=(sum(pose_memory)+PRIORITY*pose_memory[0])/(len(pose_memory)+PRIORITY)
+	return poseavg
 
 def cam_localization(camera):
 	"""
@@ -231,7 +278,9 @@ def cam_localization(camera):
 	if markerlocs != None:
 		#if any marker was detected
 		#refer to existing table of marker positions to gauge your own position
-		return rob_estimate_pose(markerlocs)
+		newpose=rob_estimate_pose(markerlocs)
+		poseavg=rob_pose_filter(newpose)
+		return poseavg
 	else:
 		return None
 
