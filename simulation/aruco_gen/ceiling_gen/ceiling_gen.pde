@@ -1,7 +1,7 @@
 //each pixel is 1mm.
 int numid=20;
 int numrow=4;
-int numcol=4;
+int numcol=3;
 int alpha=140;
 int beta=140;
 int tagsize=18;
