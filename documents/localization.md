@@ -44,9 +44,17 @@ y│  ┌───────────────────────�
     │                                                                  │
 
 ```
-now the position of each marker is defined by $$x = a * ((id)mod3 + 1) + offset$$ and $$y = b * (floor(\dfrac{id}{3} + 1) + offset$$. Also assume that each marker has the same orientation.
+now the position of each marker is defined by $x = a * ((id)mod3 + 1) + offset$ and $y = b * (floor(\dfrac{id}{3} + 1) + offset$. Also assume that each marker has the same orientation.
 
-So now we know $${}^OT_{M_1}$$, and we get $${}^RT_{M_1}$$ from the robot's pose. Then we can find the robot's pose using $${}^OT_R = {}^OT_{M_1} ({}^RT_{M_1})^{-1}$$.
+So now we know ${}^OT_{M_1}$, and we get ${}^RT_{M_1}$ from the robot's pose. Then we can find the robot's pose using ${}^OT_R = {}^OT_{M_1} ({}^RT_{M_1})^{-1}$.
+
+Note: We have to reflect the ${}^RT_{M_1}$ matrix on all axes using the following expression before we do the above calculation (probably due to the camera mirroring the image):
+```
+     [-1  0  0  0]
+ M=M*[ 0 -1  0  0]
+     [ 0  0 -1  0]
+     [ 0  0  0  1]
+```
 
 If we have multiple markers to reference, we might encounter problems, so for now we will find the closest marker to the robot and use that to find pose. Later, this part can be changed to a Kalman filter.
 
