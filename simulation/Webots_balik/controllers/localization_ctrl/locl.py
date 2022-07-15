@@ -14,11 +14,14 @@ from math import floor, sin, cos, asin
 #K=np.array([[888.7906, 0, 402.7489], [0, 884.7119, 436.1675], [0, 0, 1]])
 #D=np.array([[-0.9876], [0.5647], [0.0], [0.0], [0.0]])
 #fisheye camera params (matlab) (modified)
-K=np.array([[888.7906, 0, 300], [0, 884.7119, 300], [0, 0, 1]])
-D=np.array([[-0.9876], [0.5647], [0.0], [0.0], [0.0]])
+#K=np.array([[888.7906, 0, 402.7489], [0, 884.7119, 436.1675], [0, 0, 1]])
+#D=np.array([[-0.9876], [0.5647], [0.0], [0.0], [0.0]])
+#straight cam
+K=np.array([[200.0, 0.0, 500.0], [0.0, 200.0, 500.0], [0.0, 0.0, 1.0]])
+D=np.array([[0.0], [0.0], [0.0], [0.0], [0.0]])
 
 ### FUNCTIONS
-def cam_snap(camera,resolution=(1280,720)):
+def cam_snap(camera,resolution=(1280,720), matrix_coefficients=K, distortion_coefficients=D):
 	"""
 	take an image, return opencv-appropriate numpy array
 
@@ -40,6 +43,8 @@ def cam_snap(camera,resolution=(1280,720)):
 	img=cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
 	img=cv2.flip(img,1)
 	img=cv2.resize(img,resolution)
+	#newK, roi = cv2.getOptimalNewCameraMatrix(matrix_coefficients, distortion_coefficients, resolution, 1, resolution)
+	#img=cv2.undistort(img, matrix_coefficients, distortion_coefficients, dst=None, newCameraMatrix=newK)
 	return img
 
 
@@ -92,7 +97,8 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 			tvecn=tvec[:]
 			#empirical testing shows that the z axis estimation is double what it should be for some reason.
 			#hence divide by two here as a weird fix
-			tvec[0][0][2]/=2
+			#tvec[0][0][2]/=2
+			#tvec=tvec/6
 			
 			#add rvec and tvec under a key
 			results[str(ids[i])]=[rvec,tvec]
@@ -110,7 +116,7 @@ def cam_estimate_pose(frame, aruco_dict_type=cv2.aruco.DICT_5X5_100, matrix_coef
 					distortion_coefficients,
 					rvec,
 					tvecn,
-					0.1,
+					markersize/5,
 				)
 		if show:
 			#draw frame here
@@ -150,8 +156,9 @@ def rob_estimate_pose(markerlocs):
 			closest=[marker_id, markerlocs[marker_id], mag]
 		elif mag<closest[2]:
 			#found something closer, declare that the closest
+			print(f"{mag} was less than {closest[2]} and this is {marker_id}")
 			closest=[marker_id, markerlocs[marker_id], mag]
-	print(f"{marker_id} is the closest")
+	print(f"{closest[0]} is the closest")
 	rvec=closest[1][0]
 	tvec=closest[1][1]
 	# use tvec and rvec to obtain a transformation matrix
@@ -162,6 +169,13 @@ def rob_estimate_pose(markerlocs):
 	print("RTM:")
 	print(RTM)
 	#RTM: robot -> marker transformation matrix
+	rotmatinv=np.linalg.inv(rotmat)
+	RTMinv=np.hstack((rotmatinv,-tvec))
+	RTMinv=np.vstack((RTMinv,np.array([0,0,0,1])))
+	print("RTMinv:")
+	#print(RTMinv)
+	print(np.linalg.inv(RTM))
+	#RTMinv: marker->robot transformation matrix
 	#TODO: change params below after hanging markers
 	NUM_COLS=3
 	ALPHA=1.4 #separation in x direction. unit=meters? 
@@ -176,7 +190,7 @@ def rob_estimate_pose(markerlocs):
 	idint=int(marker_id[1:-1])
 	#assume not rotated according to room coordinate system
 	mx= X_OFFSET + ALPHA * (((idint-1) % NUM_COLS)+1)
-	my= Y_OFFSET + BETA * floor(idint/NUM_COLS)
+	my= Y_OFFSET + BETA * (floor(idint/NUM_COLS)+1)
 	#mz=0 since we assume origin is level with ceiling. can be changed.
 	mz=0
 	OTM=np.array([[1, 0, 0, mx], [0, 1, 0, my], [0, 0, 1, mz], [0, 0, 0, 1]])
@@ -184,7 +198,7 @@ def rob_estimate_pose(markerlocs):
 	print(OTM)
 	#OTM: origin -> marker transformation matrix
 	#now we find OTR using OTM*(RTM)^-1
-	OTR=OTM*(np.linalg.inv(RTM))
+	OTR=np.matmul(OTM,np.linalg.inv(RTM))
 	print("OTR: ")
 	print(OTR)
 	#OTR: origin -> robot transformation matrix
