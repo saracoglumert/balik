@@ -14,7 +14,7 @@ PImage[] imgs = new PImage[numid+1];
 void setup() {
   size(1070,730);
   for(int i=0;i<numid;i++){
-    imgs[i]=loadImage("files/marker_".concat(str(i+1)).concat(".jpg"));
+    imgs[i]=loadImage("files/marker_".concat(str(i)).concat(".jpg"));
   }
 }
   //  image(imgs[i], i*width/10, i*height/10);

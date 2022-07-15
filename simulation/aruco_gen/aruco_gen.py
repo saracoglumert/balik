@@ -6,7 +6,7 @@ import numpy as np
 
 #DEFINES
 tag_type="DICT_5X5_100"
-tag_ids=range(1,21)
+tag_ids=range(0,20)
 tag_size=18
 
 

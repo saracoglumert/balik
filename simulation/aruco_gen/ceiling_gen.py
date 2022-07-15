@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 
 ceilbase=cv2.imread("./ceiling_gen/ceilingbase.png", cv2.IMREAD_UNCHANGED)
